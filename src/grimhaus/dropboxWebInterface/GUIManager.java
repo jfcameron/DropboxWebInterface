@@ -12,14 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public class GUIManager 
+public class GUIManager implements grimhaus.dropboxWebInterface.Logger
 {
     //
     // Constants
     //
     private static final String    c_WindowName = "Dropbox Web interface GUI";
     private static final Dimension c_WindowSize = new Dimension(800,500);
-    private static final Font      font = new Font
+    private static final Font      font         = new Font
     (
         Font.MONOSPACED, 
         Font.PLAIN,
@@ -28,17 +28,18 @@ public class GUIManager
     );
     
     //
-    // Data member
+    // Data members
     //
     private JTextArea editArea;
     
+    //
     //Constructor
+    //
     GUIManager()
     {
         //Create contents for window
         JLabel emptyLabel = new JLabel("asdfasdfasdf");
         emptyLabel.setPreferredSize(c_WindowSize);
-          
         
         // the GUI as seen by the user (without frame)
         JPanel gui = new JPanel(new BorderLayout());
@@ -49,9 +50,6 @@ public class GUIManager
         editArea.setEditable(false);
         editArea.setLineWrap(true);
         editArea.setWrapStyleWord(true);
-        // adjust the font to a monospaced font.
-        
-        
         editArea.setFont(font);
         
         gui.add
@@ -73,7 +71,6 @@ public class GUIManager
         JFrame frame = new JFrame(c_WindowName);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        //frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
         frame.add(gui);
         frame.setLocation
         (
@@ -85,12 +82,16 @@ public class GUIManager
         //Display the window.
         frame.setSize(c_WindowSize); //frame.pack();
         frame.setVisible(true);
+        
     }
     
+    //
+    // GUI interface
+    //
+    @Override //GUI interface
     public void log(String aString)
     {
         editArea.append(aString + "\n");
-        
         
     }
     
