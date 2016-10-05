@@ -1,24 +1,19 @@
-//package
 package grimhaus.dropboxWebInterface;
 
-//implementation dependencies
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-
-//app object
 public class Application 
-{
-    private IndexManager m_IndexManager;
-    
+{    
+    private static GUIManager   m_GUI          = new GUIManager();
+    private static IndexManager m_IndexManager = new IndexManager();
+
     //program entry point
-    public static void main(String[] args) throws FileNotFoundException 
+    public static void main(String[] args) 
     {
-        try (PrintStream out = new PrintStream(new FileOutputStream("filename.txt"))) 
-        {
-            out.print("hello");
+        m_IndexManager.test();
         
-        }    
+        m_GUI.log("This is the end, my friend.");
+        m_GUI.log("This is the end, my friend.");
+        
+        //while(true);
         
     }
     
