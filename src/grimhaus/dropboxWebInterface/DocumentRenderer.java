@@ -4,11 +4,9 @@
  * Uses a template.
  * Replaces #VarName# with HTML content
  */
-
 package grimhaus.dropboxWebInterface;
 
 //implementation dependencies
-import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -67,19 +65,13 @@ public class DocumentRenderer
         //3. generate final document data
         String documentHTMLData = m_TemplateHTMLData;
         
-        //for(int i = 0; i < aTemplateVariableToHTTPContentMap.size();i++)
-        //    documentHTMLData = documentHTMLData.replace(aTemplateVariableToHTTPContentMap., bodyDataHTML);
-        
         for (Map.Entry<String, String> entry : aTemplateVariableToHTTPContentMap.entrySet())
             documentHTMLData = documentHTMLData.replace(entry.getKey(), entry.getValue());
-        
-        
         
         //4. Render the document
         try (PrintStream out = new PrintStream(new FileOutputStream(aFileName))) 
         {
             out.print(documentHTMLData);
-                        
             out.close();
             
         }   

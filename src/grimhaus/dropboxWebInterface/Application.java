@@ -1,8 +1,5 @@
 package grimhaus.dropboxWebInterface;
 
-import java.util.HashMap;
-import java.util.Map;//remoev
-
 public class Application 
 {    
     //test objects
@@ -13,15 +10,26 @@ public class Application
     //program entry point
     public static void main(String[] args) 
     {
-        //c_DocumentRenderer.render("index.html",                new HTMLTemplateVariableContentPair("#asdf#","somedata"));
-        //c_DocumentRenderer.render("hmm/test.html",             new HTMLTemplateVariableContentPair("#123123#","123123123"));
+        c_DocumentRenderer.render("index.html", new TemplateVariableToHTTPContentMap
+        (
+                new VariableToHTTPContentPair("#BodyData#","Sorry nope"),
+                new VariableToHTTPContentPair("#CurrentDirectoryData#","This is a thing")
+                
+        ));
         
-        TemplateVariableToHTTPContentMap aContentMap = new TemplateVariableToHTTPContentMap();
+        c_DocumentRenderer.render("hmm/test.html", new TemplateVariableToHTTPContentMap
+        (
+                new VariableToHTTPContentPair("#BodyData#","hello"),
+                new VariableToHTTPContentPair("#CurrentDirectoryData#","whats up")
+                
+        ));
         
-        aContentMap.put("#BodyData#","Hello my friend");
-        aContentMap.put("#CurrentDirectoryData#","eyy");
-        
-        c_DocumentRenderer.render("a/b/c/testingtseting.html", aContentMap);
+        c_DocumentRenderer.render("a/b/c/testingtseting.html", new TemplateVariableToHTTPContentMap
+        (
+                new VariableToHTTPContentPair("#BodyData#","Hello my friend"),
+                new VariableToHTTPContentPair("#CurrentDirectoryData#","eyy")
+                
+        ));
         
     }
     
