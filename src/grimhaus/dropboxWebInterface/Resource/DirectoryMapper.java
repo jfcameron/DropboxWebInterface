@@ -1,3 +1,11 @@
+/*
+ * DirectoryMapper
+ * user points the object @ a directory,
+ * object traverses dir and subdirs, creating
+ * a tree structure that represents the directory
+ * structure found and contents found therein
+ *
+ */
 package grimhaus.dropboxWebInterface.Resource;
 
 public class DirectoryMapper 
