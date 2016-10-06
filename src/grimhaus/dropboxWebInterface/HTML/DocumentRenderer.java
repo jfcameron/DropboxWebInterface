@@ -4,9 +4,10 @@
  * Uses a template.
  * Replaces #VarName# with HTML content
  */
-package grimhaus.dropboxWebInterface;
+package grimhaus.dropboxWebInterface.HTML;
 
 //implementation dependencies
+import grimhaus.dropboxWebInterface.Application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,13 +35,13 @@ public class DocumentRenderer
     //
     // Data members
     //
-    private final grimhaus.dropboxWebInterface.Logger m_Logger;
+    private final grimhaus.dropboxWebInterface.GUI.Logger m_Logger;
     private final String m_TemplateHTMLData;    
     
     //
     // Constructors
     //
-    DocumentRenderer(grimhaus.dropboxWebInterface.Logger aGUI)
+    public DocumentRenderer(grimhaus.dropboxWebInterface.GUI.Logger aGUI)
     {
         //Assigning instance data
         m_TemplateHTMLData = loadTemplateHTMLDocument();
@@ -53,7 +54,7 @@ public class DocumentRenderer
     //
     // public interface
     //
-    public void render(String aFileName, TemplateVariableToHTTPContentMap aTemplateVariableToHTTPContentMap)
+    public void render(String aFileName, TemplateVariableToHTMLContentMap aTemplateVariableToHTTPContentMap)
     {
         m_Logger.log("DocumentRenderer is Creating document " + aFileName + "...");
         

@@ -1,4 +1,4 @@
-package grimhaus.dropboxWebInterface;
+package grimhaus.dropboxWebInterface.GUI;
 
 //implementation dependencies
 import java.awt.BorderLayout;
@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-public class GUIManager implements grimhaus.dropboxWebInterface.Logger
+public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
 {
     //
     // Constants
@@ -35,7 +35,7 @@ public class GUIManager implements grimhaus.dropboxWebInterface.Logger
     //
     //Constructor
     //
-    GUIManager()
+    public GUIManager()
     {
         //Create contents for window
         JLabel emptyLabel = new JLabel("asdfasdfasdf");

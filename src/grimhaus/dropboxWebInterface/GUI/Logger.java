@@ -1,4 +1,4 @@
-package grimhaus.dropboxWebInterface;
+package grimhaus.dropboxWebInterface.GUI;
 
 public interface Logger 
 {

@@ -1,15 +1,15 @@
-package grimhaus.dropboxWebInterface;
+package grimhaus.dropboxWebInterface.HTML;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javafx.util.Pair;
 
-public class TemplateVariableToHTTPContentMap 
+public class TemplateVariableToHTMLContentMap 
 {
     private HashMap<String,String> m_HashMap;
     
-    public TemplateVariableToHTTPContentMap(VariableToHTTPContentPair...aPairs)
+    public TemplateVariableToHTMLContentMap(VariableToHTMLContentPair...aPairs)
     {
         m_HashMap = new HashMap<String,String>();
         
