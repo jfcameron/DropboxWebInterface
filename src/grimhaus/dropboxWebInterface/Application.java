@@ -17,26 +17,14 @@ public class Application
     //program entry point
     public static void main(String[] args) 
     {
-        c_DocumentRenderer.render("index.html", new TemplateVariableToHTMLContentMap
+        /*c_DocumentRenderer.render("index.html", new TemplateVariableToHTMLContentMap
         (
                 new VariableToHTMLContentPair("#BodyData#","Sorry nope"),
                 new VariableToHTMLContentPair("#CurrentDirectoryData#","This is a thing")
                 
-        ));
+        ));*/
         
-        c_DocumentRenderer.render("hmm/test.html", new TemplateVariableToHTMLContentMap
-        (
-                new VariableToHTMLContentPair("#BodyData#","hello"),
-                new VariableToHTMLContentPair("#CurrentDirectoryData#","whats up")
-                
-        ));
         
-        c_DocumentRenderer.render("a/b/c/testingtseting.html", new TemplateVariableToHTMLContentMap
-        (
-                new VariableToHTMLContentPair("#BodyData#","Hello my friend"),
-                new VariableToHTMLContentPair("#CurrentDirectoryData#","eyy")
-                
-        ));
         
     }
     

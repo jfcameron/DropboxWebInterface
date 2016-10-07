@@ -30,7 +30,7 @@ public class DocumentRenderer
     private static final String c_TemplateHTMLDocumentName = "template.html";
     private static final String c_TemplateCSSFileName      = "template.css";
     //Output constants
-    private static final String c_OutputDirectory = "output/";
+    private static final String c_OutputDirectory          = "output/";
 
     //
     // Data members
@@ -41,13 +41,11 @@ public class DocumentRenderer
     //
     // Constructors
     //
-    public DocumentRenderer(grimhaus.dropboxWebInterface.GUI.Logger aGUI)
+    public DocumentRenderer(grimhaus.dropboxWebInterface.GUI.Logger aLogger)
     {
         //Assigning instance data
         m_TemplateHTMLData = loadTemplateHTMLDocument();
-        m_Logger = aGUI;
-        
-        m_Logger.log("A DocumentRenderer is constructing");
+        m_Logger           = aLogger;
         
     }
     
@@ -56,20 +54,16 @@ public class DocumentRenderer
     //
     public void render(String aFileName, TemplateVariableToHTMLContentMap aTemplateVariableToHTTPContentMap)
     {
-        m_Logger.log("DocumentRenderer is Creating document " + aFileName + "...");
-        
-        //1. add output dir
+        //1. check if the dir exists, create it if it doesnt
         aFileName = appendOutputDirectoryToFrontOfFileName(aFileName);
-        //2. ensure structure exists
         ensurePathExists(aFileName);
         
-        //3. generate final document data
-        String documentHTMLData = m_TemplateHTMLData;
-        
-        for (Map.Entry<String, String> entry : aTemplateVariableToHTTPContentMap.entrySet())
+        //2. generate document contents
+        String documentHTMLData = m_TemplateHTMLData; //set output buffer to raw template
+        for (Map.Entry<String, String> entry : aTemplateVariableToHTTPContentMap.entrySet()) //replace vars in template with new content
             documentHTMLData = documentHTMLData.replace(entry.getKey(), entry.getValue());
         
-        //4. Render the document
+        //3. Render the document
         try (PrintStream out = new PrintStream(new FileOutputStream(aFileName))) 
         {
             out.print(documentHTMLData);
@@ -102,18 +96,12 @@ public class DocumentRenderer
     private void ensurePathExists(String aFileName)
     {
         String[] parsedFileName = aFileName.split("/",0);
-        
-        m_Logger.log(aFileName);
-        
+
         for(int i = 0; i < parsedFileName.length-1; i++)
         {
-            m_Logger.log(parsedFileName[i]);
-            
             String currentDirectoryName = "";
             for(int j = 0; j <= i; j++)
                 currentDirectoryName += parsedFileName[j] + "/";
-            
-            m_Logger.log(currentDirectoryName);
             
             File directory = new File(String.valueOf(currentDirectoryName));
         
