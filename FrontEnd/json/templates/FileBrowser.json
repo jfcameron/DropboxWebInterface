@@ -1,4 +1,5 @@
 {
-    "directoryItems" : "<a href=''>##CONTENT##</a>"
+    "directoryItems" : 
+        "<tr><td><a href='##CONTENT_PATH##'>##CONTENT_NAME##</a></td><td>不明</td></tr>"
 
 }

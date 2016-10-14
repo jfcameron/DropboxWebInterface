@@ -17,3 +17,5 @@ function main()
     fileBrowser.renderDirectory("Media/Projects/VoxelEdit");
     
 }
+
+main();
