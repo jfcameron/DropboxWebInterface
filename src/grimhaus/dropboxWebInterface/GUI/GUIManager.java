@@ -5,6 +5,16 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+//import java.net.URISyntaxException;
+import java.util.Date;
+import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,7 +45,7 @@ public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
     //
     //Constructor
     //
-    public GUIManager()
+    public GUIManager() 
     {
         //Create contents for window
         JLabel emptyLabel = new JLabel("asdfasdfasdf");
@@ -81,7 +91,7 @@ public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
         
         //Display the window.
         frame.setSize(c_WindowSize); //frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(true);      
         
     }
     
