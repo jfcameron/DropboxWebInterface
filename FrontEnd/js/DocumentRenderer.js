@@ -12,7 +12,7 @@ function FileBrowser()
     var c_TemplateContentPathSymbol = "##CONTENT_PATH##";
     
     var c_TemplateDirectory         = "json/templates/";
-    var c_DirectoryListsDirectory   = "json/directories/";
+    var c_DirectoryListsDirectory   = "json/directorymap/";
     
     //*********************
     // Private Data members
@@ -56,7 +56,35 @@ function FileBrowser()
     
     appendProceduralDataToJSONObject = function(aFileName, aJSONObject)
     {
-        aJSONObject.directoryName = aFileName;
+        //Calc current directory path
+        {        
+            var buffer ="";
+            
+            var path="";//"?d=";
+            
+            buffer += "<a href='javascript:fileBrowser.renderDirectory(\""+path+"\")'>"
+            buffer += "ROOT";
+            buffer += "</a> / ";
+            
+            aFileName.split("/").forEach(function (item)
+            {
+                if (item.length > 0)
+                {
+                    path+=item+"/";
+                    
+                    buffer += "<a href='javascript:fileBrowser.renderDirectory(\""+path+"\")'>";//"<a href="+path+">";
+                    buffer += item;
+                    buffer += "</a> / ";
+                
+                }                 
+ 
+            });
+            
+            
+                    
+            aJSONObject.directoryName = buffer;
+        
+        }
         
     };
     
@@ -74,21 +102,27 @@ function FileBrowser()
                         
                         for (var i = 0; i < rValue.length; i++)
                         {
-                            buffer += m_Template[key].replace(c_TemplateContentNameSymbol,rValue[i]);
-                            buffer = buffer.replace(c_TemplateContentPathSymbol,aContentDirectory+rValue[i]);
+                            buffer += m_Template[key];
+                            
+                            //buffer += m_Template[key].replace(c_TemplateContentNameSymbol,rValue[i]);
+                            
+                            while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
+                                buffer = buffer.replace(c_TemplateContentNameSymbol,rValue[i]);
+                            
+                            buffer = buffer.replace(c_TemplateContentPathSymbol,/*aContentDirectory+*/rValue[i]);
                             
                         }
                             
                         rValue = buffer;
                                                 
                     }
-                    //string case
-                    else
-                    {
-                        rValue = m_Template[key].replace(c_TemplateContentSymbol,rValue);
-                        rValue = rValue.replace(c_TemplateContentPathSymbol,aContentDirectory+rValue[i]);
-                    
-                    }
+                    ////string case
+                    //else
+                    //{
+                    //    //rValue = m_Template[key].replace(c_TemplateContentSymbol,rValue);
+                    //    //rValue = rValue.replace(c_TemplateContentPathSymbol,/*aContentDirectory+*/rValue[i]);
+                    //
+                    //}
         
         //aHTMLObject.innerHTML ="";
         aHTMLObject.innerHTML = rValue;
@@ -137,8 +171,8 @@ function FileBrowser()
     FileBrowser.prototype.renderDirectory = function(aFileName)
     {
         //convert directory name in arg to json content name format
-        var fileName = aFileName.split('/').join('_');
-        fileName = c_DirectoryListsDirectory + fileName + ".json";
+        var fileName = aFileName;//.split('/').join('_');
+        fileName = c_DirectoryListsDirectory + fileName + "/content.json";
         
         //generate content directory for links
         var contentDirectory = m_SiteContentRootPath+aFileName+'/';
@@ -174,6 +208,24 @@ function FileBrowser()
             
         );
         
+        //if (window.location.href.indexOf('#') <= 0)
+        //{
+        //    window.location.href = window.location.href + '#?!';
+        //    
+        //}
+        //
+        //var params = getQueryParameters();
+        ////if(params.d != "") 
+        //{
+        //    params.d = aFileName;
+        //    setQueryParameters(params);
+        //
+        //}
+        
+        
+        
+        window.history.pushState("object or string", "d", '?d='+aFileName);
+                
     };
     
     //

@@ -18,6 +18,7 @@ public class Application
 {    
     private static final String c_DropboxPublicDirectoryRoot = new String("C:\\Users\\Joe\\Dropbox\\Public");//"C:\\Users\\Joe\\Desktop\\DropboxWebInterface\\testDirectory");
     private static final String c_DropboxPublicRootURL = new String("https://dl.dropboxusercontent.com/u/102655232");
+    private static final String c_DirectoryMapOutputPath = new String("C:\\Users\\Joe\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterface\\");
     
     
     //test objects
@@ -38,7 +39,7 @@ public class Application
         
         );
         
-        c_DirectoryMapper  = new DirectoryMapper((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager,c_DropboxPublicDirectoryRoot,c_DropboxPublicRootURL); 
+        c_DirectoryMapper  = new DirectoryMapper((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager,c_DropboxPublicDirectoryRoot,c_DropboxPublicRootURL,c_DirectoryMapOutputPath); 
         c_DocumentRenderer = new DocumentRenderer((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager);
                        
     }

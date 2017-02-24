@@ -1,4 +1,9 @@
 {
+    "subDirectories" : 
+        "<tr><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_NAME##')\">##CONTENT_NAME##</a></td><td>Dir</td></tr>"
+        
+    ,
+        
     "directoryItems" : 
         "<tr><td><a href='##CONTENT_PATH##'>##CONTENT_NAME##</a></td><td>不明</td></tr>"
 
