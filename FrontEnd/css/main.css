@@ -128,12 +128,12 @@ body, html
     
 }
 
-.FileBrowser__DirectoryListing th:nth-child(1)
+.FileBrowser__DirectoryListing th:nth-child(2)
 {
     text-alight:left;
 
 }
-.FileBrowser__DirectoryListing th:nth-child(2)
+.FileBrowser__DirectoryListing th:nth-child(1)
 {
      text-alight:right;
      width:25px;

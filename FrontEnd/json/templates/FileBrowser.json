@@ -1,10 +1,10 @@
 {
     "subDirectories" : 
-        "<tr><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_NAME##')\">##CONTENT_NAME##</a></td><td>Dir</td></tr>"
+        "<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>"
         
     ,
         
     "directoryItems" : 
-        "<tr><td><a href='##CONTENT_PATH##'>##CONTENT_NAME##</a></td><td>File</td></tr>"
+        "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>"
 
 }

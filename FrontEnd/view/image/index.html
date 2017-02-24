@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+    <body>
+        <script type="text/javascript">
+            function $_GET(param) 
+            {
+                var vars = {};
+                window.location.href.replace( location.hash, '' ).replace
+                ( 
+                    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                    function( m, key, value ) { // callback
+                        vars[key] = value !== undefined ? value : '';
+                    }
+                
+                );
+            
+                if ( param ) 
+                {
+                    return vars[param] ? vars[param] : null;	
+                
+                }
+                
+                return vars;
+            
+            }
+        
+            console.log($_GET("f"));
+        
+            var src =($_GET("f")? $_GET("f"): "/");
+            
+            img = document.createElement('img');
+            img.src = src;
+            document.body.appendChild(img);
+        
+        </script>
+        
+    </body>
+    
+    
+    
+</html>

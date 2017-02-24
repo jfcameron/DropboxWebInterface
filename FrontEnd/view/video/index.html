@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="https://vjs.zencdn.net/5.16.0/video-js.css" rel="stylesheet">
+        
+        <!-- If you'd like to support IE8 -->
+        <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    
+    </head>
+
+    <body>
+        <!--<iframe id = "Video"  class="PreviewImageRatioContent" src="https://dl.dropboxusercontent.com/u/102655232/Media/Internet/warm%20it%20up%20exe%20That_s%20a%2010_" allowfullscreen="1"></iframe>
+    -->
+    <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+    <source id="video-source" src="https://dl.dropboxusercontent.com/u/102655232/Media/Internet/warm%20it%20up%20exe%20That_s%20a%2010_.flv" type="video/flv">
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+  </video>
+
+  <script src="https://vjs.zencdn.net/5.16.0/video.js"></script>
+    
+    
+    
+    
+        <script type="text/javascript">
+            function $_GET(param) 
+            {
+                var vars = {};
+                window.location.href.replace( location.hash, '' ).replace
+                ( 
+                    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                    function( m, key, value ) { // callback
+                        vars[key] = value !== undefined ? value : '';
+                    }
+                
+                );
+            
+                if ( param ) 
+                {
+                    return vars[param] ? vars[param] : null;	
+                
+                }
+                
+                return vars;
+            
+            }
+        
+            console.log($_GET("f"));
+        
+            var src =($_GET("f")? $_GET("f"): "/");
+            
+            //Set source
+            document.getElementById('video-source').src = src;            
+        
+            //Set type
+            if (src.split("/").pop() == "flv")
+                document.getElementById('video-source').type = "video/flv";    
+        
+        </script>
+    
+    
+    
+    </body>
+        
+</html>

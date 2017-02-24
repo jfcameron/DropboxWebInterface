@@ -106,10 +106,23 @@ function FileBrowser()
                             
                             //buffer += m_Template[key].replace(c_TemplateContentNameSymbol,rValue[i]);
                             
-                            while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
-                                buffer = buffer.replace(c_TemplateContentNameSymbol,rValue[i]);
                             
-                            buffer = buffer.replace(c_TemplateContentPathSymbol,/*aContentDirectory+*/rValue[i]);
+                            
+                            {
+                                var data = rValue[i].split("/").pop();
+                                
+                                while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
+                                    buffer = buffer.replace(c_TemplateContentNameSymbol,data);
+                            
+                            }
+                            
+                            {   
+                                var data = rValue[i];
+                                buffer = buffer.replace(c_TemplateContentPathSymbol,data);//buffer.replace(c_TemplateContentPathSymbol,rValue[i]);
+                                
+                            }
+                            
+                            
                             
                         }
                             
@@ -159,7 +172,44 @@ function FileBrowser()
     
     //***************
     // Public methods
-    //***************    
+    //*************** 
+    FileBrowser.prototype.renderFile = function(aFileName)
+    {
+        var fileType = aFileName.split(".").pop();
+        
+        //console.log(fileType);
+        
+        switch(fileType)
+        {
+            //Image viewer
+            case "png":
+            case "jpg":
+            {
+                window.open("./view/image/?f="+aFileName+"",'_blank');
+                
+            
+            } break;
+            
+            //Video viewer
+            case "flv":
+            {
+                window.open("./view/video/?f="+aFileName+"",'_blank');
+                
+            
+            } break;
+            
+            default:
+            {
+                window.open(aFileName,'_blank');
+                
+            }
+            
+            
+            
+        }        
+        
+    };
+    
     /*
      * name: renderContentFile
      * args: aFileName
