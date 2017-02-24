@@ -5,6 +5,6 @@
     ,
         
     "directoryItems" : 
-        "<tr><td><a href='##CONTENT_PATH##'>##CONTENT_NAME##</a></td><td>不明</td></tr>"
+        "<tr><td><a href='##CONTENT_PATH##'>##CONTENT_NAME##</a></td><td>File</td></tr>"
 
 }

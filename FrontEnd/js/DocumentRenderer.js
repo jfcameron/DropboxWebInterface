@@ -63,7 +63,7 @@ function FileBrowser()
             var path="";//"?d=";
             
             buffer += "<a href='javascript:fileBrowser.renderDirectory(\""+path+"\")'>"
-            buffer += "ROOT";
+            buffer += "Public";
             buffer += "</a> / ";
             
             aFileName.split("/").forEach(function (item)
