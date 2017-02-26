@@ -3,3 +3,4 @@ add parameters for the java app: allow user to run it guiless. This is apropriat
 update the json representation of your data on some schedule (daily etc.).
 record meaningful error messages.
 parameterless run will produce a GUI to help first time users figure out how to use the thing.
+generate a metadata.json file that stores information about the scan such as the time/date of the scan.
