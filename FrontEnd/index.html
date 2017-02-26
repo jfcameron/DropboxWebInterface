@@ -12,23 +12,33 @@
         <link rel="stylesheet" href="css/pure-min.css">
         <link rel="stylesheet" href="css/main.css">
         
-        
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
         
     </head>
 
+    
+    <style>
+        /* media query for pure-u-sm-* classes from grids-responsive.css */   
+        @media screen and (min-width: 35.5em) {
+            .pure-menu-horizontal.sm-right{
+                text-align: right;
+            }
+        }
+    </style>    
+    
     <body>
         <div id="layout">
             <div id="header">
                 <div class="pure-menu pure-menu-horizontal">
                     <a class="pure-menu-heading" href="">Dropbox Web interface</a>
                     
-                    <ul class="pure-menu-list">
+                    <!--<ul class="pure-menu-list">
                         <li class="pure-menu-item"><a href="#" class="pure-menu-link">test</a></li>
                         <li class="pure-menu-item"><a href="#" class="pure-menu-link">tests</a></li> 
                                                 
-                    </ul>
+                    </ul>-->
                     
-                    <ul class="menu__rightlist pure-menu-list">
+                    <!--<ul class="menu__rightlist pure-menu-list">
                         <li class="pure-menu-item pure-menu-has-children">
                             <a href="#" id="menuLink1" class="pure-menu-link">More</a>
                             <ul class="pure-menu-children">
@@ -44,7 +54,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul>-->
                     
                 </div>
                 
@@ -80,7 +90,9 @@
             </div>
             
             <div id="footer">
-            <div class="buildTimeStamp">file contents as of 日月年</div>            
+                <div class="signature">Joseph Cameron | <a href="https://jfcameron.github.io/">jfcameron.github.io</a></div>
+                <div class="buildTimeStamp">This project makes use of: <a href="https://purecss.io/">Pure.css</a>, <a href="http://videojs.com/">VideoJS</a>.<br>file contents as of <div id="timestampValue">日月年</div></div>
+                        
             </div>           
             
         </div> 

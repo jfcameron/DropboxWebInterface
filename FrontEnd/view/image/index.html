@@ -1,6 +1,20 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta name="viewport" content="width=device-width; target-densityDpi=device-dpi;" />
+        
+    </head>
+    
+    <!--**************-->
+    <!-- CSS includes -->
+    <!--**************-->
+    <link rel="stylesheet" href="image.css" type="text/css"/>
+
     <body>
+        <a href="" id="downloadlink"><img id="image"></a>
+    
         <script type="text/javascript">
             function $_GET(param) 
             {
@@ -28,9 +42,10 @@
         
             var src =($_GET("f")? $_GET("f"): "/");
             
-            img = document.createElement('img');
+            img = document.getElementById('image');
             img.src = src;
-            document.body.appendChild(img);
+            document.getElementById('downloadlink').href = src;
+            //document.body.appendChild(img);
         
         </script>
         

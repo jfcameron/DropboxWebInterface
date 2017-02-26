@@ -1,67 +1,161 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <link href="https://vjs.zencdn.net/5.16.0/video-js.css" rel="stylesheet">
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <meta name="viewport" content="width=device-width; target-densityDpi=device-dpi;" />
         
-        <!-- If you'd like to support IE8 -->
-        <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
-    
     </head>
 
-    <body>
-        <!--<iframe id = "Video"  class="PreviewImageRatioContent" src="https://dl.dropboxusercontent.com/u/102655232/Media/Internet/warm%20it%20up%20exe%20That_s%20a%2010_" allowfullscreen="1"></iframe>
-    -->
-    <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-    <source id="video-source" src="https://dl.dropboxusercontent.com/u/102655232/Media/Internet/warm%20it%20up%20exe%20That_s%20a%2010_.flv" type="video/flv">
-    <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a web browser that
-      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-    </p>
-  </video>
+    <!--**************-->
+    <!-- CSS includes -->
+    <!--**************-->
+    <link rel="stylesheet" href="Main.css" type="text/css"/>
+    <link rel="stylesheet" href="Article.css" type="text/css"/>
+    
+    <link href="https://vjs.zencdn.net/5.16.0/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="video.css" type="text/css"/>
+        
+    <!--*************-->
+    <!-- JS includes -->
+    <!--*************-->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="../../JS/HighlightJS/highlight.pack.js"></script>
 
-  <script src="https://vjs.zencdn.net/5.16.0/video.js"></script>
+    <!--***************-->
+    <!-- HTML Document -->
+    <!--***************-->
+    <title>Joseph Cameron - Game Programmer Portfolio</title>
     
-    
-    
-    
-        <script type="text/javascript">
-            function $_GET(param) 
-            {
-                var vars = {};
-                window.location.href.replace( location.hash, '' ).replace
-                ( 
-                    /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-                    function( m, key, value ) { // callback
-                        vars[key] = value !== undefined ? value : '';
-                    }
-                
-                );
+    <body>    
+        <div id = "background"></div>
+        
+        <div id = "wrapper">
+            <div id="ArticleHeader"></div>
             
-                if ( param ) 
+            <div id="ArticleHeaderSpacer"></div>
+            
+            <div class="RatioWrapper">
+                <div class="RatioContent">
+                    <!--<iframe id = "video"  class="RatioContent" src="https://drive.google.com/file/d/0ByMgjmjcPctfaDBTSEhObDBaaXM/preview?autoplay=1" allowfullscreen="1"></iframe>
+                    -->
+                    <video id="my-video" class="video-js " data-setup='{"fluid": true}' controls preload="auto" width="100%" height="100%" poster="img.jpg" data-setup="{}">
+                <source id="video-source" src="" type="">
+                <source id="video-source" src="" type="">
+                <source id="video-source" src="" type="">
+                
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a web browser that
+                    <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            
+                </p>
+            
+            </video>
+                </div>
+            
+            </div>
+            
+            <div id = "header">
+                Joseph Cameron | <a href="mailto:jf.cameron@gmail.com">jf.cameron@gmail.com</a>
+            
+            </div>
+        
+            <div id = "main">   
+                <h1>Information</h1>
+            
+                <!--<img class="left" src="../../Images/SushiJointRumble_TitleScreen/Small.png" target="_blank"></img>-->
+            
+                <p>
+                    <ul>
+                        <li><!--<tr><td>-->Download:<!--</td><td>--> <span id="downloadLink">不明</span><!--</td></tr>--></li>
+                        <li><!--<tr><td>-->Filetype:<!--</td><td>--> <span id="fileTypeDisplay">不明</span><!--</td></tr>--></li>
+                        
+                    </ul>
+                        
+                </p>
+                
+            </div>
+            
+            <div id = "footer">
+                Joseph Cameron | <a href="">jf.cameron@gmail.com</a>
+            
+            </div>
+            
+        </div>
+     
+        <script type="text/javascript" src="../../JS/Presentation/StagingLabel.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        
+        <script src="https://vjs.zencdn.net/5.16.0/video.js"></script>
+        <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+            
+        <script type="text/javascript">
+                function $_GET(param) 
                 {
-                    return vars[param] ? vars[param] : null;	
+                    var vars = {};
+                    window.location.href.replace( location.hash, '' ).replace
+                    ( 
+                        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                        function( m, key, value ) { // callback
+                            vars[key] = value !== undefined ? value : '';
+                        }
+                    
+                    );
+                
+                    if ( param ) 
+                    {
+                        return vars[param] ? vars[param] : null;	
+                    
+                    }
+                    
+                    return vars;
                 
                 }
+            
+                console.log($_GET("f"));
+            
+                var src =($_GET("f")? $_GET("f"): "/");
                 
-                return vars;
+                //Set source
+                document.getElementById('video-source').src = src;   
+               
             
-            }
-        
-            console.log($_GET("f"));
-        
-            var src =($_GET("f")? $_GET("f"): "/");
+                //Set type
+                var fileType = src.split("/").pop().split(".").pop();
+                
+                //VIDEO
+                if (fileType == "flv")
+                    document.getElementById('video-source').type = "video/flv";    
+                else if (fileType == "mp4")
+                    document.getElementById('video-source').type = "video/mp4"; 
+                else if (fileType == "webm")
+                    document.getElementById('video-source').type = "video/webm"; 
+                
+                //AUDIO audio/mp3
+                else if (fileType == "mp3")
+                {
+                    document.getElementById('video-source').type = "audio/mp3"; 
+                    console.log("hio");
+                }
             
-            //Set source
-            document.getElementById('video-source').src = src;            
-        
-            //Set type
-            if (src.split("/").pop() == "flv")
-                document.getElementById('video-source').type = "video/flv";    
-        
+            
+                //generate information
+                var fileName = decodeURI(src.split("/").pop());
+                document.getElementById('fileTypeDisplay').innerHTML = fileType;
+                document.getElementById('downloadLink').innerHTML = '<a href=\"'+src+'\">'+fileName+"</a>";
+                document.getElementById('ArticleHeader').innerHTML = fileName.replace(fileType,"").slice(0, -1); 
+                
+            
+            
         </script>
-    
-    
-    
-    </body>
         
+    </body>
+    
 </html>
+
+
+
+
+
+

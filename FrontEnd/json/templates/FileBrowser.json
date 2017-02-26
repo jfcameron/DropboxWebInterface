@@ -5,6 +5,6 @@
     ,
         
     "directoryItems" : 
-        "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>"
+        "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('##CONTENT_PATH##')\"><!--<div style='height:100%;width:100%'>-->##CONTENT_NAME##<!--</div>--></a></td></tr>"
 
 }

@@ -16,6 +16,8 @@ body, html
     padding: 0;
     width: 100%;
     
+    
+    
 }
 
 #header
@@ -85,10 +87,47 @@ body, html
     float:right;
     font-size:10px;
     margin:10px;
+    margin-top:0px;
     text-align:right;
     
     
+}
+.signature
+{
+    color:#777777;
+    display:inline-block;
+    font-size:12px;
+    margin:10px;
+
+    width:100%;
+    text-align: center;
     
+}
+
+#timestampValue
+{
+    display:inline;
+    
+    color:#777777;
+
+}
+
+#subDirectories
+{
+    /*background-color:yellow;*/
+
+border-style:line;
+    border-bottom: 1px solid #cbcbcb;
+
+}
+
+/*tr:nth-child(even){background-color: #f2f2f2;}*/
+
+tbody tr:hover {background-color: #f2f2f2;}
+tr
+{
+     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
 }
 
 /* ************************************************ */
@@ -109,6 +148,7 @@ body, html
 .FileBrowser__DirectoryListing
 {
     width:100%;
+   
     
 }
 
@@ -137,5 +177,35 @@ body, html
 {
      text-alight:right;
      width:25px;
+
+}
+
+
+/*  Link styling    */
+a:link {text-decoration:none;}   
+a:visited {text-decoration:none;} 
+a:hover {text-decoration:underline;}  
+a:active {text-decoration:underline;}  
+/*a{color: #7788FF;}*/
+
+a.readmore
+{
+    display: inline-block;
+
+}
+
+a.readmore img
+{
+    display: inline-block;
+    padding-left: 5px;
+    height: 16px;
+
+}
+
+a.github img
+{
+    display: inline-block;
+    padding-left: 5px;
+    height: 16px;
 
 }

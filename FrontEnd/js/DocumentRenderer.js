@@ -118,6 +118,18 @@ function FileBrowser()
                             
                             {   
                                 var data = rValue[i];
+                                
+                                ////while (data.indexOf("'") > 0)
+                                //data = data.replace("'","\\'");
+                                //data = data.replace("'","\\'");
+                                //data = data.replace("'","\\'");
+                                
+                                //while (data.indexOf("\"") > 0)
+                                //    data = data.replace('"','\\"');
+                                //    data = data.replace('"','\\"');
+                                //    data = data.replace('"','\\"');
+                                
+                                
                                 buffer = buffer.replace(c_TemplateContentPathSymbol,data);//buffer.replace(c_TemplateContentPathSymbol,rValue[i]);
                                 
                             }
@@ -190,10 +202,13 @@ function FileBrowser()
             
             } break;
             
-            //Video viewer
+            //AVviewer
             case "flv":
+            case "mp4":
+            case "webm":
+            case "mp3":
             {
-                window.open("./view/video/?f="+aFileName+"",'_blank');
+                window.open("./view/video/?f="+(aFileName),'_blank');
                 
             
             } break;
