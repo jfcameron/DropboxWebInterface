@@ -1,0 +1,18 @@
+{
+    "subDirectories" :
+    [
+"/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/Docs",
+"/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS",
+"/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/Shaders",
+"/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/Textures"
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/content.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/overrides.css"
+
+    ]
+
+}

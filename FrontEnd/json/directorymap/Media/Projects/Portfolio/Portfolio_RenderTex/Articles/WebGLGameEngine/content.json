@@ -1,0 +1,20 @@
+{
+    "subDirectories" :
+    [
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/Docs",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/JS",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/Shaders",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/Textures"
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/content - Copy.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/content.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/Main.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine/overrides.css"
+
+    ]
+
+}

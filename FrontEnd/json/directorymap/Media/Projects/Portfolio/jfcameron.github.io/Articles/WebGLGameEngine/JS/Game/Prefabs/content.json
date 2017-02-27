@@ -1,0 +1,20 @@
+{
+    "subDirectories" :
+    [
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/CameraController.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/Cloud.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/Ground.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/NamePlate.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/Player.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/RotatorTest.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/Skybox.js",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/WebGLGameEngine/JS/Game/Prefabs/Water.js"
+
+    ]
+
+}

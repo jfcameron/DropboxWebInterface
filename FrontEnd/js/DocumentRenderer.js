@@ -104,52 +104,59 @@ function FileBrowser()
                         {
                             buffer += m_Template[key];
                             
-                            //buffer += m_Template[key].replace(c_TemplateContentNameSymbol,rValue[i]);
-                            
-                            
+                            //console.log(buffer);
+                            //
+                            //buffer = buffer.replace("\'","\"");
+                            //buffer = buffer.replace("\'","\"");
+                            //buffer = buffer.replace("\'","\"");
+                            //buffer = buffer.replace("\'","\"");
+                            //buffer = buffer.replace("\'","\"");
                             
                             {
                                 var data = rValue[i].split("/").pop();
                                 
                                 while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
+                                {
+                                    //console.log(data);
+                                    //
+                                    //data = data.replace("\'","");
+                                    //data = data.replace("\'","");
+                                    //data = data.replace("\'","");
+                                    //data = data.replace("\'","");
+                                    
+                                    
                                     buffer = buffer.replace(c_TemplateContentNameSymbol,data);
+                            
+                                }
                             
                             }
                             
                             {   
                                 var data = rValue[i];
                                 
-                                ////while (data.indexOf("'") > 0)
-                                //data = data.replace("'","\\'");
-                                //data = data.replace("'","\\'");
-                                //data = data.replace("'","\\'");
-                                
-                                //while (data.indexOf("\"") > 0)
-                                //    data = data.replace('"','\\"');
-                                //    data = data.replace('"','\\"');
-                                //    data = data.replace('"','\\"');
-                                
-                                
                                 buffer = buffer.replace(c_TemplateContentPathSymbol,data);//buffer.replace(c_TemplateContentPathSymbol,rValue[i]);
-                                
+                                                                
                             }
-                            
-                            
                             
                         }
                             
                         rValue = buffer;
                                                 
                     }
-                    ////string case
-                    //else
-                    //{
-                    //    //rValue = m_Template[key].replace(c_TemplateContentSymbol,rValue);
-                    //    //rValue = rValue.replace(c_TemplateContentPathSymbol,/*aContentDirectory+*/rValue[i]);
-                    //
-                    //}
         
-        //aHTMLObject.innerHTML ="";
+        ////////////if (aObjectName == "subDirectories")
+        ////////////{
+        ////////////    //rValue+="<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>";
+        ////////////    rValue+="<tr><td>Dir</td><td>a dir</td></tr>";
+        ////////////    
+        ////////////}
+        ////////////else if (aObjectName == "directoryItems")
+        ////////////{
+        ////////////    rValue+="<tr><td>File</td><td>a file</td></tr>";
+        ////////////    //rValue+="<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('##CONTENT_PATH##')\"><!--<div style='height:100%;width:100%'>-->##CONTENT_NAME##<!--</div>--></a></td></tr>";
+        ////////////    
+        ////////////}
+        
         aHTMLObject.innerHTML = rValue;
         
     };

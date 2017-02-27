@@ -1,0 +1,14 @@
+{
+    "subDirectories" :
+    [
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/ConwaysGameOfLifeInAComputeShader/content.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/Articles/ConwaysGameOfLifeInAComputeShader/GameOfLife_ComputeShader_Source.hlsl"
+
+    ]
+
+}

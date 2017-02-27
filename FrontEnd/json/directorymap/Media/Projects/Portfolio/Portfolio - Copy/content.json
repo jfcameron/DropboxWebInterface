@@ -1,0 +1,25 @@
+{
+    "subDirectories" :
+    [
+"/Media/Projects/Portfolio/Portfolio - Copy/.git",
+"/Media/Projects/Portfolio/Portfolio - Copy/Articles",
+"/Media/Projects/Portfolio/Portfolio - Copy/CSS",
+"/Media/Projects/Portfolio/Portfolio - Copy/Docs",
+"/Media/Projects/Portfolio/Portfolio - Copy/Images",
+"/Media/Projects/Portfolio/Portfolio - Copy/JS",
+"/Media/Projects/Portfolio/Portfolio - Copy/Resume",
+"/Media/Projects/Portfolio/Portfolio - Copy/Shaders",
+"/Media/Projects/Portfolio/Portfolio - Copy/Textures"
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/HTTP.url",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/index.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/README.md",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/todo.txt"
+
+    ]
+
+}

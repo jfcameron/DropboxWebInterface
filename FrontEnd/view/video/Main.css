@@ -308,8 +308,8 @@ body
 
     /* Background */
     /*background-image: url("../Textures/bgtest.png");*/
-    background-image: url("../Textures/lodyas.png");
-    background-color: #101A1A;
+    /*background-image: url("../Textures/lodyas.png");*/
+    background-color: 000000; /*#101A1A;*/
     /*background-size: 256px;*/
     background-position: center bottom;
     background-repeat:repeat; 
@@ -351,7 +351,7 @@ body
     position: fixed;
     /*background-image: url("../Textures/bgtest.png");*/
     background-image: url("../Textures/lodyas.png");
-    background-color: #101A1A;
+    background-color: #000000;/*#101A1A;*/
     /*background-size: 256px;*/
     background-position: center bottom;
     background-repeat:repeat; 

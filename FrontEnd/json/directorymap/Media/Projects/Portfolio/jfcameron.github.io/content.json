@@ -1,0 +1,25 @@
+{
+    "subDirectories" :
+    [
+"/Media/Projects/Portfolio/jfcameron.github.io/.git",
+"/Media/Projects/Portfolio/jfcameron.github.io/Articles",
+"/Media/Projects/Portfolio/jfcameron.github.io/CSS",
+"/Media/Projects/Portfolio/jfcameron.github.io/Docs",
+"/Media/Projects/Portfolio/jfcameron.github.io/Images",
+"/Media/Projects/Portfolio/jfcameron.github.io/JS",
+"/Media/Projects/Portfolio/jfcameron.github.io/Resume",
+"/Media/Projects/Portfolio/jfcameron.github.io/Shaders",
+"/Media/Projects/Portfolio/jfcameron.github.io/Textures"
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/HTTP.url",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/index.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/README.md",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/jfcameron.github.io/todo.txt"
+
+    ]
+
+}

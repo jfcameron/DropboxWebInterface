@@ -1,0 +1,20 @@
+{
+    "subDirectories" :
+    [
+
+    ],
+
+    "directoryItems" :
+    [
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/AlphaCutOff.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/GLSLLibrary.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Island - Copy.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Island.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Opaque.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Sky.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Skybox.html",
+"https://dl.dropboxusercontent.com/u/102655232/Media/Projects/Portfolio/Portfolio - Copy/Shaders/Water.html"
+
+    ]
+
+}

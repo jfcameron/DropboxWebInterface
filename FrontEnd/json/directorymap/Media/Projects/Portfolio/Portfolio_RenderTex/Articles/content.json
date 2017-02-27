@@ -1,0 +1,25 @@
+{
+    "subDirectories" :
+    [
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/2DGameCollection",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/ConwaysGameOfLifeInAComputeShader",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/CRenderer",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/CSnake",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/Railshooter",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/RPGCreator",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/SpeedKing",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/SushiJointRumble",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/TerrainMaps",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/TowerDefense",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/VoxelRenderingOnTheGPU",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WalkThru",
+"/Media/Projects/Portfolio/Portfolio_RenderTex/Articles/WebGLGameEngine"
+
+    ],
+
+    "directoryItems" :
+    [
+
+    ]
+
+}
