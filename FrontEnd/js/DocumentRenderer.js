@@ -90,74 +90,108 @@ function FileBrowser()
     
     decorateJSONData = function(aHTMLObject,aObjectName,aRawJSONData,aContentDirectory)
     {
-        var rValue = aRawJSONData;
+        var rValue="";// = aRawJSONData;
         
-        for (var key in m_Template)     
-            if (m_Template.hasOwnProperty(key))
-                if (key == aObjectName)
-                    //array case
-                    if (typeof rValue == 'object')
-                    {
-                        var buffer = "";
-                        
-                        for (var i = 0; i < rValue.length; i++)
-                        {
-                            buffer += m_Template[key];
-                            
-                            //console.log(buffer);
-                            //
-                            //buffer = buffer.replace("\'","\"");
-                            //buffer = buffer.replace("\'","\"");
-                            //buffer = buffer.replace("\'","\"");
-                            //buffer = buffer.replace("\'","\"");
-                            //buffer = buffer.replace("\'","\"");
-                            
-                            {
-                                var data = rValue[i].split("/").pop();
-                                
-                                while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
-                                {
-                                    //console.log(data);
-                                    //
-                                    //data = data.replace("\'","");
-                                    //data = data.replace("\'","");
-                                    //data = data.replace("\'","");
-                                    //data = data.replace("\'","");
-                                    
-                                    
-                                    buffer = buffer.replace(c_TemplateContentNameSymbol,data);
-                            
-                                }
-                            
-                            }
-                            
-                            {   
-                                var data = rValue[i];
-                                
-                                buffer = buffer.replace(c_TemplateContentPathSymbol,data);//buffer.replace(c_TemplateContentPathSymbol,rValue[i]);
-                                                                
-                            }
-                            
-                        }
-                            
-                        rValue = buffer;
-                                                
-                    }
+        //for (var key in m_Template)     
+        //    if (m_Template.hasOwnProperty(key))
+        //        if (key == aObjectName)
+        //            //array case
+        //            if (typeof rValue == 'object')
+        //            {
+        //                var buffer = "";
+        //                
+        //                for (var i = 0; i < rValue.length; i++)
+        //                {
+        //                    buffer += m_Template[key];
+        //                    
+        //                    {
+        //                        var data = rValue[i].split("/").pop();
+        //                        
+        //                        while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
+        //                        {                   
+        //                            buffer = buffer.replace(c_TemplateContentNameSymbol,data);
+        //                    
+        //                        }
+        //                    
+        //                    }
+        //                    
+        //                    {   
+        //                        var data = rValue[i];
+        //                        
+        //                        buffer = buffer.replace(c_TemplateContentPathSymbol,data);
+        //                                                        
+        //                    }
+        //                    
+        //                }
+        //                    
+        //                rValue = buffer;
+        //                                        
+        //            }
         
-        ////////////if (aObjectName == "subDirectories")
-        ////////////{
-        ////////////    //rValue+="<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>";
-        ////////////    rValue+="<tr><td>Dir</td><td>a dir</td></tr>";
-        ////////////    
-        ////////////}
-        ////////////else if (aObjectName == "directoryItems")
-        ////////////{
-        ////////////    rValue+="<tr><td>File</td><td>a file</td></tr>";
-        ////////////    //rValue+="<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('##CONTENT_PATH##')\"><!--<div style='height:100%;width:100%'>-->##CONTENT_NAME##<!--</div>--></a></td></tr>";
-        ////////////    
-        ////////////}
+        //aHTMLObject,aObjectName,aRawJSONData,aContentDirectory
         
-        aHTMLObject.innerHTML = rValue;
+        //console.log(aObjectName);
+        //console.log(aContentDirectory);
+        //console.log(aHTMLObject);
+        //console.log(aRawJSONData);
+        
+        //
+        switch(aObjectName)
+        {
+            case("directoryName"):
+            {
+                rValue+=aRawJSONData;
+                
+            }
+            break;
+            
+            case("subDirectories"):
+            {
+                //"<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('##CONTENT_PATH##')\">##CONTENT_NAME##</a></td></tr>"
+                aRawJSONData.forEach(function(item)
+                {
+                    rValue += "<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('"
+                    +
+                        item//"##CONTENT_PATH##"
+                    +
+                    "')\"><!--<div style='height:100%;width:100%'>-->"
+                    +
+                        item.split("/").pop()//"##CONTENT_NAME##"
+                    +
+                    "<!--</div>--></a></td></tr>";
+                
+                    
+                });
+                
+            } 
+            break;
+            
+            case("directoryItems"):
+            {
+                aRawJSONData.forEach(function(item)
+                {
+                    rValue += "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('"
+                    +
+                        item//"##CONTENT_PATH##"
+                    +
+                    "')\"><!--<div style='height:100%;width:100%'>-->"
+                    +
+                        item.split("/").pop()//"##CONTENT_NAME##"
+                    +
+                    "<!--</div>--></a></td></tr>";
+                
+                    
+                });
+                
+            } 
+            break;
+            
+        }
+        
+        //
+        
+        if (rValue != "undefined")
+            aHTMLObject.innerHTML = rValue;
         
     };
     
@@ -267,12 +301,12 @@ function FileBrowser()
                     if (documentElement != null)
                         decorateJSONData(documentElement,key,jsonData[key],contentDirectory);
                     
-                    //Class case
-                    documentElement = document.getElementsByClassName(key);
-                    
-                    if (documentElement != null)
-                        for (var i = 0; i < documentElement.length; i++)
-                            decorateJSONData(documentElement[i],key,jsonData[key],contentDirectory);
+                    ////Class case
+                    //documentElement = document.getElementsByClassName(key);
+                    //
+                    //if (documentElement != null)
+                    //    for (var i = 0; i < documentElement.length; i++)
+                    //        decorateJSONData(documentElement[i],key,jsonData[key],contentDirectory);
                     
                 }
                 

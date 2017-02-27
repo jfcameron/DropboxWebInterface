@@ -58,4 +58,6 @@ function main()
     
 }
 
-window.onload = main;
+main();
+
+//window.onload = main;
