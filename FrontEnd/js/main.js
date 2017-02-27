@@ -10,7 +10,7 @@
  * desc: program entry point
  *
 */
-var fileBrowser = new FileBrowser("https://dl.dropboxusercontent.com/u/102655232/");
+var fileBrowser = new FileBrowser(c_SiteContentRootPath);
 
 
 function $_GET(param) {
@@ -54,7 +54,7 @@ function getQueryParameters() {
 
 function main()
 {
-    fileBrowser.renderDirectory($_GET("d")? $_GET("d"): "/");
+    fileBrowser.renderDirectory($_GET("d")? $_GET("d"): "/",c_SiteContentRootPath);
     
 }
 

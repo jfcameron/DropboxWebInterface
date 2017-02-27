@@ -3,7 +3,7 @@
  *  Description: application code
  * 
 */
-function FileBrowser()
+function FileBrowser(dropboxRootURL)
 {
     //**********
     // Constants
@@ -18,7 +18,7 @@ function FileBrowser()
     // Private Data members
     //*********************
     var m_Template = [];
-    var m_SiteContentRootPath = "https://dl.dropboxusercontent.com/u/102655232/";
+    var m_SiteContentRootPath =dropboxRootURL;// = "https://dl.dropboxusercontent.com/u/102655232/";
     
     
     //****************
@@ -92,50 +92,6 @@ function FileBrowser()
     {
         var rValue="";// = aRawJSONData;
         
-        //for (var key in m_Template)     
-        //    if (m_Template.hasOwnProperty(key))
-        //        if (key == aObjectName)
-        //            //array case
-        //            if (typeof rValue == 'object')
-        //            {
-        //                var buffer = "";
-        //                
-        //                for (var i = 0; i < rValue.length; i++)
-        //                {
-        //                    buffer += m_Template[key];
-        //                    
-        //                    {
-        //                        var data = rValue[i].split("/").pop();
-        //                        
-        //                        while(buffer.indexOf(c_TemplateContentNameSymbol)> 0)
-        //                        {                   
-        //                            buffer = buffer.replace(c_TemplateContentNameSymbol,data);
-        //                    
-        //                        }
-        //                    
-        //                    }
-        //                    
-        //                    {   
-        //                        var data = rValue[i];
-        //                        
-        //                        buffer = buffer.replace(c_TemplateContentPathSymbol,data);
-        //                                                        
-        //                    }
-        //                    
-        //                }
-        //                    
-        //                rValue = buffer;
-        //                                        
-        //            }
-        
-        //aHTMLObject,aObjectName,aRawJSONData,aContentDirectory
-        
-        //console.log(aObjectName);
-        //console.log(aContentDirectory);
-        //console.log(aHTMLObject);
-        //console.log(aRawJSONData);
-        
-        //
         switch(aObjectName)
         {
             case("directoryName"):

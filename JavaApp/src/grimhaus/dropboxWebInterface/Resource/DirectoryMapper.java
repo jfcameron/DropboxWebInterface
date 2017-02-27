@@ -11,9 +11,9 @@ package grimhaus.dropboxWebInterface.Resource;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
+//import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.logging.Level;
@@ -35,30 +35,6 @@ public class DirectoryMapper
         
         mapRecursive(m_DropboxPublicDirectoryRoot);
         
-        /*{
-            try 
-            {
-                File file = new File(m_DirectoryMapOutputPath);
-                file.mkdirs();
-                
-                file = new File(m_DirectoryMapOutputPath+"sampleFile.txt");
-                //file.mkdirs();
-            
-                if(file.createNewFile())
-                    System.out.println("File creation successfull");
-                else
-                    System.out.println("Error while creating File, file already exists in specified path");
-                
-            }
-            
-            catch(IOException io) 
-            {
-                io.printStackTrace();
-                
-            }
-    
-        }*/
-        
     }
     
     /*
@@ -70,15 +46,18 @@ public class DirectoryMapper
     {
         String URLPath = aPath.replace(m_DropboxPublicDirectoryRoot,"").replace("\\","/");
         
+        m_Logger.log("11111111111111111111111111111111111\n"+aPath+"\n11111111111111111111111111111111111");
+        
         if (URLPath.startsWith("/"))
             URLPath = URLPath.replaceFirst("/","");
         
-        m_Logger.log
-        (
-            "*************************\n" +
-            "Mapping \"" + URLPath + "\"\n" +
-            "*************************"
-        );
+        if (m_Logger != null)
+            m_Logger.log
+            (
+                "*************************\n" +
+                "Mapping \"" + URLPath + "\"\n" +
+                "*************************"
+            );
         
         
         File directory = new File(aPath);
@@ -109,11 +88,13 @@ public class DirectoryMapper
         //m_Logger.log("Contents:");
         for ( File f : fileList)
         {
-            m_Logger.log(f.getPath().replace(m_DropboxPublicDirectoryRoot,m_DropboxPublicRootURL).replace("\\","/"));
+            if (m_Logger != null)
+                m_Logger.log(f.getPath().replace(m_DropboxPublicDirectoryRoot,m_DropboxPublicRootURL).replace("\\","/"));
             
         }
         
-        m_Logger.log("");
+        if (m_Logger != null)
+            m_Logger.log("");
         
         for ( File f : directoryList) 
         {            
@@ -121,7 +102,8 @@ public class DirectoryMapper
             
         }
         
-        m_Logger.log(m_DirectoryMapOutputPath+URLPath+"*************");
+        if (m_Logger != null)
+            m_Logger.log(m_DirectoryMapOutputPath+URLPath+"*************");
         
         //
         // Render directory and content file
@@ -190,6 +172,9 @@ public class DirectoryMapper
         
         catch (IOException ex) 
         {
+            if (m_Logger != null)
+                    m_Logger.log(ex.getMessage());
+            
             Logger.getLogger(DirectoryMapper.class.getName()).log(Level.SEVERE, null, ex);
         
         }

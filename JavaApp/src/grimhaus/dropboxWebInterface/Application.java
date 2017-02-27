@@ -2,49 +2,179 @@ package grimhaus.dropboxWebInterface;
 
 import grimhaus.dropboxWebInterface.Resource.DirectoryMapper;
 import grimhaus.dropboxWebInterface.GUI.GUIManager;
-import grimhaus.dropboxWebInterface.HTML.DocumentRenderer;
-import grimhaus.dropboxWebInterface.HTML.TemplateVariableToHTMLContentMap;
-import grimhaus.dropboxWebInterface.HTML.VariableToHTMLContentPair;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import org.json.simple.parser.ParseException;
 
 
 public class Application 
-{    
-    private static final String c_DropboxPublicDirectoryRoot = new String("C:\\Users\\Joe\\Dropbox\\Public");//"C:\\Users\\Joe\\Desktop\\DropboxWebInterface\\testDirectory");
-    private static final String c_DropboxPublicRootURL = new String("https://dl.dropboxusercontent.com/u/102655232");
-    private static final String c_DirectoryMapOutputPath = new String("C:\\Users\\Joe\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterface\\");
+{        
+    //Data members
+    private static String m_DropboxPublicDirectoryRoot = "";
+    private static String m_DropboxPublicRootURL = "";
+    private static String m_DirectoryMapOutputPath = "";
     
+    private static final Date buildDate = getClassBuildTime();
     
-    //test objects
-    private static final GUIManager       c_GUIManager       = new GUIManager();
-    private static  DirectoryMapper  c_DirectoryMapper ;// = new DirectoryMapper((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager,c_DropboxPublicDirectoryRoot);
-    private static  DocumentRenderer c_DocumentRenderer;// = new DocumentRenderer((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager);
+    private static boolean m_NoGUI = false;
+    
+    private static GUIManager guiManager;
     
     //program entry point
     public static void main(String[] args) 
     {
-        //new Date();//(new File(getClass().getClassLoader().getResource(getClass().getCanonicalName().replace('.', '/') + ".class").toURI()).lastModified()));
-        c_GUIManager.log
-        (
-            "DropBoxWebInterface\n"+
-            "Build: "+
-            buildDate.toString()+
-            "\n===========================\n\n"
+        checkArgs(args);
         
-        );
+        if (!m_NoGUI)
+            guiManager = new GUIManager();
         
-        c_DirectoryMapper  = new DirectoryMapper((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager,c_DropboxPublicDirectoryRoot,c_DropboxPublicRootURL,c_DirectoryMapOutputPath); 
-        c_DocumentRenderer = new DocumentRenderer((grimhaus.dropboxWebInterface.GUI.Logger)c_GUIManager);
-                       
+        if (guiManager != null)
+            guiManager.log
+            (
+                "DropBoxWebInterface\n"+
+                "Build: "+
+                buildDate.toString()+
+                "\n===========================\n\n"
+                    
+            );
+        
+        if (loadSettings())
+        {
+            DirectoryMapper directoryMapper  = new DirectoryMapper((grimhaus.dropboxWebInterface.GUI.Logger)guiManager,m_DropboxPublicDirectoryRoot,m_DropboxPublicRootURL,m_DirectoryMapOutputPath); 
+            
+            if (m_NoGUI)
+                System.exit(0);
+            else
+            {
+                guiManager.log("*********\nMapping is complete\n*********");
+                
+            }
+            
+        }
+        else
+        {
+            if (guiManager != null)
+                guiManager.log("Settings could not be loaded from Settings.json. Please verify json contents and rerun the program.");
+            
+        }
+        
+        
     }
     
-    private static final Date buildDate = getClassBuildTime();
+    private static boolean loadSettings()
+    {
+        File file = new File("Settings.json");
+        
+        if (!file.exists())
+        {
+            if (guiManager != null)
+                guiManager.log("Settings.json did not exist. Creating the file. Please fill out Settings.json with the needed information");
+            
+            try 
+            {
+                JSONObject obj = new JSONObject();
+                obj.put("PathToDropboxPublicDirectoryRoot","");
+                obj.put("DropboxPublicRootURL","");
+                obj.put("DirectoryMapOutputPath","");
+                
+                FileWriter fileWriter = new FileWriter("Settings.json");
+                
+                fileWriter.write(obj.toJSONString());
+                fileWriter.flush();
+            
+            } 
+            catch (IOException ex) 
+            {
+                if (guiManager != null)
+                    guiManager.log(ex.getMessage());
+            
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            
+            }
+            
+            return false;
+            
+        }
+        else
+        {
+            JSONParser parser = new JSONParser();
+        
+            try 
+            {
+                JSONObject jsonObject = (JSONObject) parser.parse(new FileReader("Settings.json"));
+                
+                m_DropboxPublicDirectoryRoot = jsonObject.get("PathToDropboxPublicDirectoryRoot").toString();
+                m_DropboxPublicRootURL = jsonObject.get("DropboxPublicRootURL").toString();
+                m_DirectoryMapOutputPath = jsonObject.get("DirectoryMapOutputPath").toString();
+                
+                if (
+                        "".equals(m_DropboxPublicDirectoryRoot) || 
+                        "".equals(m_DropboxPublicRootURL) || 
+                        "".equals(m_DirectoryMapOutputPath)
+                   )
+                {
+                    if (guiManager != null)
+                        guiManager.log
+                        (
+                            "Settings.json contains uninitalized values. Please fill out settings and rerun the program\n"+
+                            "m_DropboxPublicDirectoryRoot: " + m_DropboxPublicDirectoryRoot + "\n" +
+                            "m_DropboxPublicRootURL: " + m_DropboxPublicRootURL + "\n" +
+                            "m_DirectoryMapOutputPath: " + m_DirectoryMapOutputPath + "\n"
+                        
+                        );
+            
+                    return false;
+                    
+                }
+                
+            }                
+            catch (IOException ex) 
+            {
+                if (guiManager != null)
+                    guiManager.log(ex.getMessage());
+                
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+            
+            }            
+            catch (ParseException ex) 
+            {
+                if (guiManager != null)
+                    guiManager.log(ex.getMessage());
+                
+                Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
+                
+            }
+            
+        }
+        
+        return true;
+        
+        
+    }
+    
+    private static void checkArgs(String[] args)
+    {
+        for (String s: args)
+        {
+            if (s.contentEquals("noGUI"))
+                m_NoGUI = true;
+                
+        }
+        
+    }
 
     /**
     * Handles files, jar entries, and deployed jar entries in a zip file (EAR).
