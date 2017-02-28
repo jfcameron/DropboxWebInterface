@@ -123,7 +123,7 @@ public class DirectoryMapper
         {
             FileOutputStream fos = new FileOutputStream(fout);
 
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos,"UTF-8"));
  
             //filestart
             bw.write("{\n");
