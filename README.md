@@ -25,9 +25,9 @@ OR:
 ###Example Settings.json:
 ```c++
 {
-    "PathToDropboxPublicDirectoryRoot":"..\\..\\..\\Dropbox\\Public\\",
+    "PathToDropboxPublicDirectoryRoot":"..\\Public\\",
     "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/xxxxxxxxx/",
-    "DirectoryMapOutputPath":"..\\..\\..\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterface\\"
+    "DirectoryMapOutputPath":"..\\Apps\\updog\\jfcameron\\PublicInterface\\"
     
 }
 ```
