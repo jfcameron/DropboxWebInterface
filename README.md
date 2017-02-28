@@ -1,10 +1,6 @@
 #Dropbox Web Interface
 ![alt tag](http://jfcameron.github.io/Images/WebInterface_DirectoryExplorer/Big.png "")
 
-![alt tag](http://jfcameron.github.io/Images/WebInterface_VideoPlayer/Big.png "")
-
-
-
 ##Description:
 This project generates a small website that allows vistors to browse the contents of your public dropbox, stream content (such as audio and video) and download files.
 This is accomplished with two separate subprojects: a Java application and a separate Javascript application.
