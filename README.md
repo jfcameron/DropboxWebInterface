@@ -22,6 +22,22 @@ OR:
 
 *optional parameter: noGUI will run the application without generating a GUI and will autoterminate the program on completion.
 
+Example Settings.json:
+```c++
+int main(void)
+{
+	Engine::mainInit();
+
+	//TODO: your init code here
+	initExampleScene();
+
+	Engine::mainLoop();
+
+    return 0;
+    
+}
+```
+
 ##Libraries used:
 * [json-simple](https://github.com/fangyidong/json-simple)
 * [Pure.css](https://purecss.io/)
