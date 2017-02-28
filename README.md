@@ -27,7 +27,7 @@ OR:
 {
     "PathToDropboxPublicDirectoryRoot":"..\\..\\..\\Dropbox\\Public\\",
     "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/xxxxxxxxx/",
-    "DirectoryMapOutputPath":"..\\..\\..\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterfaceTEST\\"
+    "DirectoryMapOutputPath":"..\\..\\..\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterface\\"
     
 }
 ```
