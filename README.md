@@ -23,6 +23,6 @@ OR:
 *optional parameter: noGUI will run the application without generating a GUI and will autoterminate the program on completion.
 
 ##Libraries used:
-[json-simple](https://github.com/fangyidong/json-simple)
-[Pure.css](https://purecss.io/)
-[VideoJS](http://videojs.com/)
+* [json-simple](https://github.com/fangyidong/json-simple)
+* [Pure.css](https://purecss.io/)
+* [VideoJS](http://videojs.com/)
