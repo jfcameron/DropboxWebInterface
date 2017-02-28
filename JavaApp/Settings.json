@@ -1,6 +1,6 @@
 {
-    "PathToDropboxPublicDirectoryRoot":"C:\\Users\\Joe\\Dropbox\\Public\\",
+    "PathToDropboxPublicDirectoryRoot":"..\\..\\..\\Dropbox\\Public\\",
     "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/102655232/",
-    "DirectoryMapOutputPath":"C:\\Users\\Joe\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterface\\"
+    "DirectoryMapOutputPath":"..\\..\\..\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterfaceTEST\\"
     
 }

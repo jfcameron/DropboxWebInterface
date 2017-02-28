@@ -33,6 +33,15 @@ public class DirectoryMapper
         m_DropboxPublicRootURL = aDropboxPublicRootURL;
         m_DirectoryMapOutputPath = aDirectoryMapOutputPath+"json/directorymap/";
         
+        if (m_Logger != null)
+            m_Logger.log
+            (
+                    "DropboxPublicDirectoryRoot: "+m_DropboxPublicDirectoryRoot+
+                    "\nDropboxPublicRootURL: "+m_DropboxPublicRootURL+
+                    "\nDirectoryMapOutputPath: "+m_DirectoryMapOutputPath
+        
+            );
+        
         mapRecursive(m_DropboxPublicDirectoryRoot);
         
     }
@@ -46,10 +55,10 @@ public class DirectoryMapper
     {
         String URLPath = aPath.replace(m_DropboxPublicDirectoryRoot,"").replace("\\","/");
         
-        m_Logger.log("11111111111111111111111111111111111\n"+aPath+"\n11111111111111111111111111111111111");
+        //m_Logger.log("11111111111111111111111111111111111\n"+aPath+"\n11111111111111111111111111111111111");
         
-        if (URLPath.startsWith("/"))
-            URLPath = URLPath.replaceFirst("/","");
+        //if (URLPath.startsWith("/"))
+        //    URLPath = URLPath.replaceFirst("/","");
         
         if (m_Logger != null)
             m_Logger.log
@@ -98,12 +107,9 @@ public class DirectoryMapper
         
         for ( File f : directoryList) 
         {            
-            mapRecursive(f.getAbsolutePath());
+            mapRecursive(f.getPath()/*.getAbsolutePath()*/);
             
         }
-        
-        if (m_Logger != null)
-            m_Logger.log(m_DirectoryMapOutputPath+URLPath+"*************");
         
         //
         // Render directory and content file
