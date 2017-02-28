@@ -1,9 +1,24 @@
+function $_GET(param) {
+	var vars = {};
+	window.location.href.replace( location.hash, '' ).replace( 
+		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+		function( m, key, value ) { // callback
+			vars[key] = value !== undefined ? value : '';
+		}
+	);
+
+	if ( param ) {
+		return vars[param] ? vars[param] : null;	
+	}
+	return vars;
+}
+
 /* 
  *  Filename: DocumentRenderer.js
  *  Description: application code
  * 
 */
-function FileBrowser(dropboxRootURL)
+function FileBrowser()
 {
     //**********
     // Constants
@@ -13,12 +28,13 @@ function FileBrowser(dropboxRootURL)
     
     var c_TemplateDirectory         = "json/templates/";
     var c_DirectoryListsDirectory   = "json/directorymap/";
+    var c_MetaDataDirectory         = "json/";
     
     //*********************
     // Private Data members
     //*********************
     var m_Template = [];
-    var m_SiteContentRootPath =dropboxRootURL;// = "https://dl.dropboxusercontent.com/u/102655232/";
+    var m_SiteContentRootPath;// =dropboxRootURL;// = "https://dl.dropboxusercontent.com/u/102655232/";
     
     
     //****************
@@ -284,15 +300,32 @@ function FileBrowser(dropboxRootURL)
         //
         //}
         
-        
-        
         window.history.pushState("object or string", "d", '?d='+aFileName);
                 
     };
     
-    //
-    //
-    //
-    loadTemplateFile("FileBrowser");
+    FileBrowser.prototype.init= function(aDocumentRendererInstance)
+    {
+        var fileName = c_MetaDataDirectory + "metadata" + ".json";
+        
+        asyncLoadJSONFile
+        (
+            fileName,
+            function(jsonData)
+            {
+                m_SiteContentRootPath = jsonData["dropboxPublicRootURL"];
+                document.getElementById("timestampValue").innerHTML = jsonData["timestamp"];
+                
+                aDocumentRendererInstance.renderDirectory($_GET("d")? $_GET("d"): "/",m_SiteContentRootPath);
+                
+            }
+            
+        );
+        
+        //document.getElementById("timestampValue").text = 
+        
+    };
+    
+    this.init(this);
     
 }

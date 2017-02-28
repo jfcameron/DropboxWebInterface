@@ -16,6 +16,8 @@ import java.io.FileOutputStream;
 //import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +27,7 @@ public class DirectoryMapper
     private final String m_DropboxPublicDirectoryRoot;
     private final String m_DropboxPublicRootURL;
     private final String m_DirectoryMapOutputPath;
+    private final String m_MetaDataOutputPath;
     
     public DirectoryMapper(grimhaus.dropboxWebInterface.GUI.Logger aLogger, String aDropboxPublicDirectoryRoot, String aDropboxPublicRootURL, String aDirectoryMapOutputPath)
     {
@@ -32,6 +35,7 @@ public class DirectoryMapper
         m_DropboxPublicDirectoryRoot = aDropboxPublicDirectoryRoot;
         m_DropboxPublicRootURL = aDropboxPublicRootURL;
         m_DirectoryMapOutputPath = aDirectoryMapOutputPath+"json/directorymap/";
+        m_MetaDataOutputPath = aDirectoryMapOutputPath+"json/";
         
         if (m_Logger != null)
             m_Logger.log
@@ -43,6 +47,7 @@ public class DirectoryMapper
             );
         
         mapRecursive(m_DropboxPublicDirectoryRoot);
+        writeMetaData();
         
     }
     
@@ -184,6 +189,60 @@ public class DirectoryMapper
             Logger.getLogger(DirectoryMapper.class.getName()).log(Level.SEVERE, null, ex);
         
         }
+        
+    }
+    
+    private void writeMetaData()
+    {
+        File file = new File(m_MetaDataOutputPath);
+        file.mkdirs();
+
+        File fout = new File(m_MetaDataOutputPath+"/metadata.json");
+        
+        try 
+        {
+            FileOutputStream fos = new FileOutputStream(fout);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos,"UTF-8"));
+            
+            //filestart
+            bw.write("{\n");
+            
+            //timestamp
+            bw.write("    \"timestamp\" : \"");
+            
+            long timeInMillis = System.currentTimeMillis();
+            Calendar cal1 = Calendar.getInstance();
+            cal1.setTimeInMillis(timeInMillis);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                                "hh:mm:ss a, dd日MM月yyyy年");
+            
+            bw.write(dateFormat.format(cal1.getTime()));
+            
+            bw.write("\",\n");
+            
+            //dropbox root url
+            bw.write("    \"dropboxPublicRootURL\" : \"");
+            bw.write(m_DropboxPublicRootURL);
+            bw.write("\"\n\n");
+            
+            //END OF FILE
+            bw.write("\n}");
+            
+            bw.close();
+            
+        }
+        
+        catch (IOException ex) 
+        {
+            if (m_Logger != null)
+                    m_Logger.log(ex.getMessage());
+            
+            Logger.getLogger(DirectoryMapper.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+        
+        
         
     }
         

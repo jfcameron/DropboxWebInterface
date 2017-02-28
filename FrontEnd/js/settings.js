@@ -1,1 +1,0 @@
-var c_SiteContentRootPath = "https://dl.dropboxusercontent.com/u/102655232/";
