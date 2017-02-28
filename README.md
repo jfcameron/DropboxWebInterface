@@ -23,7 +23,7 @@ OR:
 *optional parameter: noGUI will run the application without generating a GUI and will autoterminate the program on completion.
 
 ###Example Settings.json:
-```c++
+```JSON
 {
     "PathToDropboxPublicDirectoryRoot":"..\\Public\\",
     "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/xxxxxxxxx/",
