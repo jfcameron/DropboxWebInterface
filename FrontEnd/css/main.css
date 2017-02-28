@@ -180,6 +180,12 @@ tr
 
 }
 
+/* media query for pure-u-sm-* classes from grids-responsive.css */   
+        @media screen and (min-width: 35.5em) {
+            .pure-menu-horizontal.sm-right{
+                text-align: right;
+            }
+        }
 
 /*  Link styling    */
 a:link {text-decoration:none;}   

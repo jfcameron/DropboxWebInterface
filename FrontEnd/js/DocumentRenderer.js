@@ -1,18 +1,3 @@
-function $_GET(param) {
-	var vars = {};
-	window.location.href.replace( location.hash, '' ).replace( 
-		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-		function( m, key, value ) { // callback
-			vars[key] = value !== undefined ? value : '';
-		}
-	);
-
-	if ( param ) {
-		return vars[param] ? vars[param] : null;	
-	}
-	return vars;
-}
-
 /* 
  *  Filename: DocumentRenderer.js
  *  Description: application code
@@ -35,7 +20,6 @@ function FileBrowser()
     //*********************
     var m_Template = [];
     var m_SiteContentRootPath;// =dropboxRootURL;// = "https://dl.dropboxusercontent.com/u/102655232/";
-    
     
     //****************
     // Private methods
@@ -167,34 +151,6 @@ function FileBrowser()
         
     };
     
-    loadTemplateFile = function(aFileName)
-    {
-        //convert directory name in arg to json content name format
-        var fileName = c_TemplateDirectory + aFileName + ".json";
-           
-        asyncLoadJSONFile
-        (
-            fileName,
-            function(jsonData)
-            {
-                for (var key in jsonData) 
-                {
-                    if (!jsonData.hasOwnProperty(key))
-                        continue;
-                    
-                    //if (!m_Template[key])
-                        
-                
-                    m_Template[key] = jsonData[key];
-                                        
-                }
-                
-            }
-            
-        );
-        
-    };
-    
     //***************
     // Public methods
     //*************** 
@@ -224,6 +180,19 @@ function FileBrowser()
                 window.open("./view/video/?f="+(aFileName),'_blank');
                 
             
+            } break;
+            
+            //Document viewer
+            case "pdf":
+            case "odt":
+            case "ods":
+            case "odp"://
+            case "doc":
+            case "txt":
+            case "md":
+            {
+                window.open("./view/document/?f="+(aFileName),'_blank');       
+                
             } break;
             
             default:
@@ -273,32 +242,11 @@ function FileBrowser()
                     if (documentElement != null)
                         decorateJSONData(documentElement,key,jsonData[key],contentDirectory);
                     
-                    ////Class case
-                    //documentElement = document.getElementsByClassName(key);
-                    //
-                    //if (documentElement != null)
-                    //    for (var i = 0; i < documentElement.length; i++)
-                    //        decorateJSONData(documentElement[i],key,jsonData[key],contentDirectory);
-                    
                 }
                 
             }
             
         );
-        
-        //if (window.location.href.indexOf('#') <= 0)
-        //{
-        //    window.location.href = window.location.href + '#?!';
-        //    
-        //}
-        //
-        //var params = getQueryParameters();
-        ////if(params.d != "") 
-        //{
-        //    params.d = aFileName;
-        //    setQueryParameters(params);
-        //
-        //}
         
         window.history.pushState("object or string", "d", '?d='+aFileName);
                 
@@ -321,8 +269,6 @@ function FileBrowser()
             }
             
         );
-        
-        //document.getElementById("timestampValue").text = 
         
     };
     

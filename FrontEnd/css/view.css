@@ -349,8 +349,6 @@ body
     /*animation: animatedBackground 8.5s linear infinite;*/
 
     position: fixed;
-    /*background-image: url("../Textures/bgtest.png");*/
-    background-image: url("../Textures/lodyas.png");
     background-color: #000000;/*#101A1A;*/
     /*background-size: 256px;*/
     background-position: center bottom;
@@ -562,3 +560,139 @@ a.github img
     height: 16px;
 
 }
+
+/* 
+    Filename: overrides.css
+    Description: article overrides
+    
+*/
+#video
+{
+    /* Position and size */
+    display: block;
+    
+    //min-width:475px;
+    //min-height:356.6px;
+    
+    width:100%;
+    height:100%;
+    
+    /* Border style */
+    //border: 15px;
+    //padding: 10px 10px; 
+    background: #2f2f2f;
+    
+}
+
+#canvas
+{
+    width:100%;
+    height:100%;
+    
+}
+
+#unityPlayer
+{
+    width:100%;
+    height:100%;
+    background:#FFFFFF;
+
+}
+
+#ArticleHeader
+{
+    font-size:  15pt;
+    background: #2f2f2f;
+	padding-left:   20.0px;
+    padding-top:     12px;
+    padding-bottom:   4px;
+	color: #BBBBBB;
+    
+    text-shadow:
+	 0.0px  2.0px 0 #000000,
+	-0.5px -0.5px 0 #000000,
+	 0.5px -0.5px 0 #000000,
+	-0.5px  0.5px 0 #000000,
+	 0.5px  0.5px 0 #000000;
+     
+     font-family: Impact, Charcoal, sans-serif;
+     letter-spacing: 1px  ;
+     font-weight: normal;
+    
+}
+
+#ArticleHeaderSpacer
+{
+    color: #FFFFFF;
+    height:5px;
+    
+}
+
+img
+{
+    width:  200px;
+    height: 200px;
+    margin: 10px 15px 15px 0px;
+    
+}
+
+.left
+{
+    float: left;
+
+}
+
+.right
+{
+    float: right; 
+
+}
+
+.center
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+code
+{
+	font-size: 15px;
+
+}
+
+/* Ratio maintainer */
+.RatioWrapper
+{
+    width: 100%;
+    /* whatever width you want */
+    display: inline-block;
+    position: relative;
+
+}
+
+.RatioWrapper:after 
+{
+    padding-top: 56.25%;
+    /* 16:9 ratio */
+    display: block;
+    content: '';
+
+}
+
+.RatioContent
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* fill parent */
+    background-color: #000000;
+    /* let's see it! */
+    color: white;
+
+}
+
+/* End Ratio Maintainer */
