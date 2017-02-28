@@ -22,18 +22,12 @@ OR:
 
 *optional parameter: noGUI will run the application without generating a GUI and will autoterminate the program on completion.
 
-Example Settings.json:
+###Example Settings.json:
 ```c++
-int main(void)
 {
-	Engine::mainInit();
-
-	//TODO: your init code here
-	initExampleScene();
-
-	Engine::mainLoop();
-
-    return 0;
+    "PathToDropboxPublicDirectoryRoot":"..\\..\\..\\Dropbox\\Public\\",
+    "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/xxxxxxxxx/",
+    "DirectoryMapOutputPath":"..\\..\\..\\Dropbox\\Apps\\updog\\jfcameron\\PublicInterfaceTEST\\"
     
 }
 ```
