@@ -1,4 +1,4 @@
-body,html
+body,html,iframe
 {
     background-color:black;
     width:100%;
@@ -6,41 +6,39 @@ body,html
     
     display: table;
     position: absolute;
+    
+    margin: 0px;
+    padding: 0px;
 
 }
 
-/* Mixin */
-@mixin vertical-align($position: relative) {
-  position: $position;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-@mixin horizontal-align($position: relative)
+/*body
 {
-    position: $position;
+    background-color:green;
 
-    display:block;  
-    margin:auto;    
+}*/
 
+html, body{ height: 100vh; }
+iframe  { height: 96vh; }
+
+iframe
+{
+    max-width: 800px;
+    
 }
 
 img
 {
-  @include vertical-align();
-  @include horizontal-align();
+    max-width: 100vw;
+    max-height: 100vh;
     
-    position:relative;
-    display:block;  
-    margin:auto; 
+    display: block;
+    margin: auto;
     
-    vertical-align: middle;
-    display: table-cell;
-    /*top: 50%;
-    /*-webkit-transform: translateY(50%);*/
-    /*-ms-transform:     translateY(50%);*/
-    transform:         translateY(10%);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
 }
