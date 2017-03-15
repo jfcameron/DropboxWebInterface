@@ -26,9 +26,9 @@ OR:
 ### Example Settings.json:
 ```JSON
 {
-    "PathToDropboxPublicDirectoryRoot":"..\\Public\\",
-    "DropboxPublicRootURL":"https://dl.dropboxusercontent.com/u/xxxxxxxxx/",
-    "DirectoryMapOutputPath":"..\\Apps\\updog\\jfcameron\\PublicInterface\\"
+    "PathToDropboxPublicDirectoryRoot":"..\\Apps\\updog\\myname\\Public\\",
+    "DropboxPublicRootURL":"https://myname.updog.co/Public/",
+    "DirectoryMapOutputPath":"..\\Apps\\updog\\myname\\PublicInterface\\"
     
 }
 ```
