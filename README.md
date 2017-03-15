@@ -1,7 +1,7 @@
-#Dropbox Web Interface
+# Dropbox Web Interface
 ![alt tag](http://jfcameron.github.io/Images/WebInterface_DirectoryExplorer/Big.png "")
 
-##Description:
+## Description:
 This project generates a small website that allows vistors to browse the contents of your public dropbox, stream content (such as audio and video) and download files.
 Although Dropbox no longer supports Public folder functionality (as of March 15th, 2017), this is still possible via the Dropbox app [Updog](https://updog.co/).
 This is accomplished with two separate subprojects: a Java application and a Javascript application.
@@ -10,7 +10,7 @@ The Java application creates a JSON representation of your Dropbox's public dire
 
 The project is meant to work alongside the Dropbox app [Updog](https://updog.co/) which allows Dropbox users to host static webpages from their dropbox app/ directory.
 
-##Setup:
+## Setup:
 Extract example.7z to the root of your dropbox 
 
 OR:
@@ -23,7 +23,7 @@ OR:
 
 *optional parameter: noGUI will run the application without generating a GUI and will autoterminate the program on completion.
 
-###Example Settings.json:
+### Example Settings.json:
 ```JSON
 {
     "PathToDropboxPublicDirectoryRoot":"..\\Public\\",
@@ -33,7 +33,7 @@ OR:
 }
 ```
 
-##Libraries used:
+## Libraries used:
 * [json-simple](https://github.com/fangyidong/json-simple)
 * [Pure.css](https://purecss.io/)
 * [VideoJS](http://videojs.com/)
