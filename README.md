@@ -2,15 +2,16 @@
 ![alt tag](http://jfcameron.github.io/Images/WebInterface_DirectoryExplorer/Big.png "")
 
 ## Description:
-This project generates a small website that allows vistors to browse the contents of your public dropbox, stream content (such as audio and video) and download files.
-Although Dropbox no longer supports Public folder functionality (as of March 15th, 2017), this is still possible via the Dropbox app [Updog](https://updog.co/).
-This is accomplished with two separate subprojects: a Java application and a Javascript application.
+Serve your dropbox files over the web via a refreshless javascript application.
+The project depends on the (free) Dropbox app [Updog](https://updog.co/) to host the js app.
 
-The Java application creates a JSON representation of your Dropbox's public directory (and sub dirs). This JSON data is then provided to the Javascript application, which uses it to render the directories of your dropbox and resolve download links to your files.
+## Features
+Interface supports both desktop and mobile devices via [Pure.css](https://purecss.io/). Supports inline video streaming, image viewing, document viewing (pdf, txt, md) with optional download links.
 
-The project is meant to work alongside the Dropbox app [Updog](https://updog.co/) which allows Dropbox users to host static webpages from their dropbox app/ directory.
+## Explanation
+Codebase is split between two projects: the javascript web interface project and the metadata generating java application. The java application creates json data that describes the structure of your dropbox directory and files. These json files are in turn consumed by the js app to serve your files as content. The Java application must be run occasionally to keep the json data in sync, id suggest scheduling this.
 
-## Setup:
+Setup:
 Extract example.7z to the root of your dropbox 
 
 OR:
@@ -34,6 +35,6 @@ OR:
 ```
 
 ## Libraries used:
-* [json-simple](https://github.com/fangyidong/json-simple)
-* [Pure.css](https://purecss.io/)
-* [VideoJS](http://videojs.com/)
+* [json-simple](https://github.com/fangyidong/json-simple) - json parser, used by the Java program
+* [Pure.css](https://purecss.io/) - used to style the js directory browser
+* [VideoJS](http://videojs.com/) - html5 video streaming lib
