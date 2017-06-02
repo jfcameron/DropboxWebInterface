@@ -6,10 +6,16 @@ Serve your dropbox files over the web via a refreshless javascript application.
 The project depends on the (free) Dropbox app [Updog](https://updog.co/) to host the js app.
 
 ## Features
-Interface supports both desktop and mobile devices via [Pure.css](https://purecss.io/). Supports inline video streaming, image viewing, document viewing (pdf, txt, md) with optional download links.
+* reactive design via [Pure.css](https://purecss.io/).
+* audio & video streaming, 
+* image viewing, 
+* document viewing (pdf, txt, md) 
+* optional file download links.
 
 ## Explanation
 Codebase is split between two projects: the javascript web interface project and the metadata generating java application. The java application creates json data that describes the structure of your dropbox directory and files. These json files are in turn consumed by the js app to serve your files as content. The Java application must be run occasionally to keep the json data in sync, I'd suggest scheduling this.
+
+The JS application allows users to navigate your dropbox directories via a refreshless directory browser. Image, document, audio and video files can be viewed directly in the browser or optionally downloaded.
 
 ## Setup:
 Extract example.7z to the root of your dropbox 
