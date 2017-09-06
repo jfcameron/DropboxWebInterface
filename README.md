@@ -2,6 +2,10 @@
 ![alt tag](http://jfcameron.github.io/Images/WebInterface_DirectoryExplorer/Big.png "")
 
 ## Description:
+![asdf](https://img.shields.io/badge/development%20status-closed-lightgrey.svg)
+![asdf](https://img.shields.io/badge/platforms-web-lightgrey.svg)
+![asdf](https://img.shields.io/badge/license-unlicense-green.svg)
+
 Serve your dropbox files over the web via a refreshless javascript application.
 The project depends on the (free) Dropbox app [Updog](https://updog.co/) to host the js app.
 
