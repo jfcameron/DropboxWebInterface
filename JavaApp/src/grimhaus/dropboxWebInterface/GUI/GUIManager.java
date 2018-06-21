@@ -5,16 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-//import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.jar.JarFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,27 +14,14 @@ import javax.swing.border.EmptyBorder;
 
 public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
 {
-    //
-    // Constants
-    //
     private static final String    c_WindowName = "Dropbox Web interface GUI";
     private static final Dimension c_WindowSize = new Dimension(800,500);
-    private static final Font      font         = new Font
-    (
-        Font.MONOSPACED, 
-        Font.PLAIN,
-        18
-        
-    );
+    private static final Font      font         = new Font(Font.MONOSPACED, 
+                                                           Font.PLAIN,
+                                                           18);
     
-    //
-    // Data members
-    //
     private JTextArea editArea;
     
-    //
-    //Constructor
-    //
     public GUIManager() 
     {
         //Create contents for window
@@ -72,7 +49,6 @@ public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
             )
         
         );
-                
         
         //Request device screensize
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -86,23 +62,16 @@ public class GUIManager implements grimhaus.dropboxWebInterface.GUI.Logger
         (
             (dim.width /2-frame.getSize().width /2) - (c_WindowSize.width /2), 
             (dim.height/2-frame.getSize().height/2) - (c_WindowSize.height/2)
-        
         );        
         
         //Display the window.
         frame.setSize(c_WindowSize); //frame.pack();
-        frame.setVisible(true);      
-        
+        frame.setVisible(true);              
     }
     
-    //
-    // GUI interface
-    //
     @Override //GUI interface
     public void log(String aString)
     {
-        editArea.append(aString + "\n");
-        
-    }
-    
+        editArea.append(aString + "\n");   
+    }    
 }
