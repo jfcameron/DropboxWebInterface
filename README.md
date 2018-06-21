@@ -36,7 +36,6 @@ OR:
     "PathToDropboxPublicDirectoryRoot":"..\\Apps\\updog\\myname\\Public\\",
     "DropboxPublicRootURL":"https://myname.updog.co/Public/",
     "DirectoryMapOutputPath":"..\\Apps\\updog\\myname\\PublicInterface\\"
-    
 }
 ```
 
