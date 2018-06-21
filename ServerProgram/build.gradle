@@ -1,0 +1,23 @@
+/*
+ * Build recipe for the current project.
+ * user guide available at https://docs.gradle.org/4.8/userguide/tutorial_java_projects.html
+ */
+plugins {
+    id 'java'        // java plugin to add support for Java
+    id 'application' // application plugin to add support for building a desktop application
+    
+    id "com.github.johnrengelman.shadow" version "1.2.3" // Merge application & dependencies into a single jar
+}
+
+dependencies {
+    compile 'com.google.guava:guava:23.0' // This dependency is found on compile classpath of this component and consumers.
+    testCompile 'junit:junit:4.12'        // Use JUnit test framework
+    
+    compile files('lib/json-simple-1.1.1.jar') //Local dependencies
+}
+
+repositories { // In this section you declare where to find [remote] dependencies of your project
+    jcenter()
+}
+
+mainClassName = 'jfc/Application' // the main class for the application

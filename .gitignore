@@ -49,3 +49,6 @@ Temporary Items
 /JavaApp/dist/
 /JavaApp/build/
 /JavaApp/nbproject/private/
+/NewServerProgram/.nb-gradle/
+/NewServerProgram/build/
+/ServerProgram/.nb-gradle/
