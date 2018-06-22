@@ -5,7 +5,7 @@
  * a tree structure that represents the directory
  * structure found and contents found therein
  */
-package jfc.Resource;
+package jfc;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,8 +25,7 @@ public class DirectoryMapper
     private final String m_DirectoryMapOutputPath;
     private final String m_MetaDataOutputPath;
 
-    public DirectoryMapper(jfc.GUI.Logger aLogger,
-            String aDropboxPublicDirectoryRoot,
+    public DirectoryMapper(String aDropboxPublicDirectoryRoot,
             String aDropboxPublicRootURL,
             String aDirectoryMapOutputPath)
     {

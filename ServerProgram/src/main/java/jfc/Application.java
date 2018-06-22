@@ -1,7 +1,6 @@
 package jfc;
 
-import jfc.Resource.DirectoryMapper;
-import jfc.GUI.GUIManager;
+import jfc.DirectoryMapper;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,8 +32,6 @@ public class Application
 
     private static boolean m_NoGUI = false;
 
-    private static GUIManager guiManager;
-
     public static void main(String[] args)
     {
         checkArgs(args);
@@ -45,7 +42,7 @@ public class Application
 
         if (loadSettings())
         {
-            DirectoryMapper directoryMapper = new DirectoryMapper((jfc.GUI.Logger) guiManager, m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL, m_DirectoryMapOutputPath);
+            DirectoryMapper directoryMapper = new DirectoryMapper(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL, m_DirectoryMapOutputPath);
 
             System.out.print("*********\nMapping is complete\n*********");
         }
@@ -120,7 +117,7 @@ public class Application
 
         try
         {
-            JSONObject jsonObject = (JSONObject) parser.parse(loadTextFile("jfc/Settings.json"));//new FileReader("Settings.json"));
+            JSONObject jsonObject = (JSONObject) parser.parse(loadTextFile("settings.json"));//new FileReader("Settings.json"));
 
             m_DropboxPublicDirectoryRoot = jsonObject.get("PathToDropboxPublicDirectoryRoot").toString();
             m_DropboxPublicRootURL = jsonObject.get("DropboxPublicRootURL").toString();
