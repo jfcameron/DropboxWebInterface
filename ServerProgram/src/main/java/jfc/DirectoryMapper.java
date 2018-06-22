@@ -1,10 +1,3 @@
-/**
- * DirectoryMapper
- * user points the object @ a directory,
- * object traverses directories creating
- * a tree structure that represents the directory
- * structure found and contents found therein
- */
 package jfc;
 
 import java.io.BufferedWriter;
@@ -18,6 +11,13 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * DirectoryMapper
+ * user points the object @ a directory,
+ * object traverses directories creating
+ * a tree structure that represents the directory
+ * structure found and contents found therein
+ */
 public class DirectoryMapper
 {
     private final String m_DropboxPublicDirectoryRoot;
@@ -43,18 +43,15 @@ public class DirectoryMapper
         writeMetaData();
     }
 
-    /*
-    * maps directory specified at aPath
-    * recursively called on child directories
+    /**
+     * maps directory specified at aPath
+     * recursively called on child directories
      */
     private void mapRecursive(String aPath)
     {
-        String URLPath = aPath.replace(m_DropboxPublicDirectoryRoot, "").replace("\\", "/");
+        String URLPath = m_DropboxPublicDirectoryRoot;
 
-        System.out.print(
-                "*************************\n"
-                + "Mapping \"" + URLPath + "\"\n"
-                + "*************************");
+        System.out.print("Mapping \"" + URLPath + "\"\n");
 
         File directory = new File(aPath);
 
@@ -66,14 +63,14 @@ public class DirectoryMapper
 
         for (File f : fileList)
         {
-            System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL).replace("\\", "/"));
+            System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
         }
 
         System.out.print("");
 
         for (File f : directoryList)
         {
-            mapRecursive(f.getPath()/*.getAbsolutePath()*/);
+            mapRecursive(f.getPath());
         }
 
         // Render directory and content file
@@ -97,7 +94,7 @@ public class DirectoryMapper
 
             for (File f : directoryList)
             {
-                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, "").replace("\\", "/") + "\"");
+                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, "") + "\"");
 
                 if (directoryList[directoryList.length - 1] != f)
                 {
@@ -114,7 +111,7 @@ public class DirectoryMapper
 
             for (File f : fileList)
             {
-                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL).replace("\\", "/") + "\"");
+                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL) + "\"");
 
                 if (fileList[fileList.length - 1] != f)
                 {
@@ -139,6 +136,7 @@ public class DirectoryMapper
         }
     }
 
+    // This implementation is ridiculous. Repalce with a json writer from simple-json
     private void writeMetaData()
     {
         File file = new File(m_MetaDataOutputPath);
