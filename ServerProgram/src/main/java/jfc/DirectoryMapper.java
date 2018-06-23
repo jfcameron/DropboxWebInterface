@@ -1,5 +1,7 @@
 package jfc;
 
+import org.json.simple.JSONObject;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.json.simple.JSONObject;
 
 /**
  * DirectoryMapper user points the object @ a directory, object traverses
@@ -52,15 +52,13 @@ public class DirectoryMapper
         String URLPath = m_DropboxPublicDirectoryRoot;
 
         //System.out.print("Mapping \"" + URLPath + "\"\n");
-
         File directory = new File(aPath);
 
         File[] fileList = directory.listFiles((File f) -> f.isFile());
         File[] directoryList = directory.listFiles((File f) -> f.isDirectory());
 
         //for (File f : fileList)
-          //  System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
-
+        //  System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
         for (File f : directoryList)
             mapRecursive(f.getPath());
 
@@ -123,52 +121,27 @@ public class DirectoryMapper
         }
     }
 
-    // This implementation is ridiculous. Repalce with a json writer from simple-json
     private void writeMetaData()
     {
         File file = new File(m_MetaDataOutputPath);
         file.mkdirs();
 
-        File fout = new File(m_MetaDataOutputPath + "/metadata.json");
-
-        try
+        try (FileOutputStream fos = new FileOutputStream(new File(m_MetaDataOutputPath + "/metadata.json")))
         {
-            FileOutputStream fos = new FileOutputStream(fout);
+            try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")))
+            {
+                JSONObject jsRoot = new JSONObject();
 
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
+                Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
+                
+                jsRoot.put("timestamp",
+                        new SimpleDateFormat("hh:mm:ss a, dd日MM月yyyy年").format(Calendar.getInstance().getTime()));
 
-            ////////////////////////////////////////////////
-            JSONObject jsRoot = new JSONObject();
-            jsRoot.put("timestamp", "zipzap");
-            
-            System.out.print(Thread.currentThread().getStackTrace()[1].getMethodName()+"\nTESTEST\n\n");
-            System.out.print(jsRoot.toString());
-            System.out.print("\n\n");
-            ////////////////////////////////////////////////////////
-            
-            //filestart
-            bw.write("{\n");
+                jsRoot.put("dropboxPublicRootURL", m_DropboxPublicRootURL);
 
-            //timestamp
-            bw.write("    \"timestamp\" : \"");
-
-            long timeInMillis = System.currentTimeMillis();
-            Calendar cal1 = Calendar.getInstance();
-            cal1.setTimeInMillis(timeInMillis);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a, dd日MM月yyyy年");
-
-            bw.write(dateFormat.format(cal1.getTime()));
-            bw.write("\",\n");
-
-            //dropbox root url
-            bw.write("    \"dropboxPublicRootURL\" : \"");
-            bw.write(m_DropboxPublicRootURL);
-            bw.write("\"\n\n");
-
-            //END OF FILE
-            bw.write("\n}");
-
-            bw.close();
+                bw.write(jsRoot.toString());
+                bw.close();
+            }
         }
         catch (IOException ex)
         {
