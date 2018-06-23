@@ -1,6 +1,7 @@
 package jfc;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,9 +26,9 @@ public class DirectoryMapper
     private final String m_MetaDataOutputPath;
 
     public DirectoryMapper(
-            String aDropboxPublicDirectoryRoot,
-            String aDropboxPublicRootURL,
-            String aDirectoryMapOutputPath)
+            final String aDropboxPublicDirectoryRoot,
+            final String aDropboxPublicRootURL,
+            final String aDirectoryMapOutputPath)
     {
         m_DropboxPublicDirectoryRoot = aDropboxPublicDirectoryRoot;
         m_DropboxPublicRootURL = aDropboxPublicRootURL;
@@ -43,75 +44,51 @@ public class DirectoryMapper
         writeMetaData();
     }
 
-    // This implementation is ridiculous. Repalce with a json writer from simple-json
     /**
      * maps directory specified at aPath recursively called on child directories
      */
-    private void mapRecursive(String aPath)
+    private void mapRecursive(final String aPath)
     {
         String URLPath = m_DropboxPublicDirectoryRoot;
 
-        //System.out.print("Mapping \"" + URLPath + "\"\n");
         File directory = new File(aPath);
 
         File[] fileList = directory.listFiles((File f) -> f.isFile());
         File[] directoryList = directory.listFiles((File f) -> f.isDirectory());
 
-        //for (File f : fileList)
-        //  System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
-        for (File f : directoryList)
+        for (final File f : directoryList)
             mapRecursive(f.getPath());
 
-        // Render directory and content file
-        File file = new File(m_DirectoryMapOutputPath + URLPath);
-
+        final File file = new File(m_DirectoryMapOutputPath + URLPath);
         file.mkdirs();
 
-        File fout = new File(m_DirectoryMapOutputPath + URLPath + "/content.json");
+        final File fout = new File(m_DirectoryMapOutputPath + URLPath + "/content.json");
 
-        try
+        try (final FileOutputStream fos = new FileOutputStream(fout))
         {
-            FileOutputStream fos = new FileOutputStream(fout);
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
-
-            //filestart
-            bw.write("{\n");
-
-            //subdir loop
-            bw.write("    \"subDirectories\" :\n    [\n");
-
-            for (File f : directoryList)
+            try (final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")))
             {
-                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, "") + "\"");
+                final JSONObject jsRoot = new JSONObject();
+                {
+                    final JSONArray jsSubDirectoriesList = new JSONArray();
 
-                if (directoryList[directoryList.length - 1] != f)
-                    bw.write(",");
+                    for (File f : directoryList)
+                        jsSubDirectoriesList.add(f.getPath().replace(m_DropboxPublicDirectoryRoot, ""));
 
-                bw.newLine();
+                    jsRoot.put("subDirectories", jsSubDirectoriesList);
+                }
+                {
+                    final JSONArray jsDirectoryItems = new JSONArray();
+
+                    for (File f : fileList)
+                        jsDirectoryItems.add(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
+
+                    jsRoot.put("directoryItems", jsDirectoryItems);
+                }
+
+                bw.write(jsRoot.toString());
+                bw.close();
             }
-
-            bw.write("\n    ],\n\n");
-
-            //directory items loop
-            bw.write("    \"directoryItems\" :\n    [\n");
-
-            for (File f : fileList)
-            {
-                bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL) + "\"");
-
-                if (fileList[fileList.length - 1] != f)
-                    bw.write(",");
-
-                bw.newLine();
-            }
-
-            bw.write("\n    ]\n");
-
-            //END OF FILE
-            bw.write("\n}");
-
-            bw.close();
         }
         catch (IOException ex)
         {
@@ -123,17 +100,17 @@ public class DirectoryMapper
 
     private void writeMetaData()
     {
-        File file = new File(m_MetaDataOutputPath);
+        final File file = new File(m_MetaDataOutputPath);
         file.mkdirs();
 
-        try (FileOutputStream fos = new FileOutputStream(new File(m_MetaDataOutputPath + "/metadata.json")))
+        try (final FileOutputStream fos = new FileOutputStream(new File(m_MetaDataOutputPath + "/metadata.json")))
         {
-            try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")))
+            try (final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")))
             {
-                JSONObject jsRoot = new JSONObject();
+                final JSONObject jsRoot = new JSONObject();
 
                 Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
-                
+
                 jsRoot.put("timestamp",
                         new SimpleDateFormat("hh:mm:ss a, dd日MM月yyyy年").format(Calendar.getInstance().getTime()));
 

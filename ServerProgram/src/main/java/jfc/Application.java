@@ -1,7 +1,5 @@
 package jfc;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,30 +15,27 @@ public class Application
 
     public static void main(String[] args)
     {
-        System.out.print(""
-                + "====\n"
-                + BuildInfo.NAME + " " + BuildInfo.VERSION
-                + "\nbuild date: " + BuildInfo.Date
-                + "\ngit info: " + BuildInfo.Branch + ", " + BuildInfo.Commit
-                + "\nAuthor: jfcameron.github.io\n"
-                + "====\n\n");
+        printBuildData();
 
         if (loadSettings())
-        {
-            DirectoryMapper directoryMapper = new DirectoryMapper(
+            new DirectoryMapper(
                     m_DropboxPublicDirectoryRoot,
                     m_DropboxPublicRootURL,
                     m_DirectoryMapOutputPath);
-
-            System.out.print(""
-                    + "*********\n"
-                    + "Mapping is complete\n"
-                    + "*********");
-        }
         else
             System.out.print(""
                     + "Settings could not be loaded from Settings.json. "
                     + "Please verify json contents and rerun the program.");
+    }
+
+    private static void printBuildData()
+    {
+        System.out.print(""
+                + BuildInfo.NAME + " " + BuildInfo.VERSION
+                + "\nbuild date: " + BuildInfo.Date
+                + "\ngit info: " + BuildInfo.Branch + ", " + BuildInfo.Commit
+                + "\nAuthor: jfcameron.github.io"
+                + "\n\n");
     }
 
     private static boolean loadSettings()

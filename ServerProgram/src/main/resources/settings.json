@@ -1,5 +1,5 @@
 {
     "PathToDropboxPublicDirectoryRoot": "/Users/josephcameron/Dropbox/Apps/updog/jfcameron/Public/",
-    "DropboxPublicRootURL": "https://jfcameron.updog.co/Public/",
-    "DirectoryMapOutputPath": "/Users/josephcameron/Dropbox/Apps/updog/jfcameron/PublicInterface/"
+    "DirectoryMapOutputPath": "/Users/josephcameron/Dropbox/Apps/updog/jfcameron/PublicInterface/",
+    "DropboxPublicRootURL": "https://jfcameron.updog.co/Public/"    
 }

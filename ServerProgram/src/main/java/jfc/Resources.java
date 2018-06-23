@@ -44,6 +44,8 @@ public class Resources
             }
         }
 
+        @Override
+        @SuppressWarnings("FinalizeDeclaration")
         protected void finalize() throws Throwable
         {
             try
@@ -58,7 +60,7 @@ public class Resources
                 {
                 }
             }
-            catch (Throwable t)
+            catch (IOException t)
             {
                 throw t;
             }
@@ -77,8 +79,6 @@ public class Resources
      */
     public static final String loadTextFile(final String aFileName)
     {
-        String name = aFileName.substring(aFileName.lastIndexOf('/') + 1);
-        String path = aFileName;
         String data = null;
 
         try
