@@ -2,7 +2,6 @@ package jfc;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -11,12 +10,12 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.json.simple.JSONObject;
+
 /**
- * DirectoryMapper
- * user points the object @ a directory,
- * object traverses directories creating
- * a tree structure that represents the directory
- * structure found and contents found therein
+ * DirectoryMapper user points the object @ a directory, object traverses
+ * directories creating a tree structure that represents the directory structure
+ * found and contents found therein
  */
 public class DirectoryMapper
 {
@@ -25,7 +24,8 @@ public class DirectoryMapper
     private final String m_DirectoryMapOutputPath;
     private final String m_MetaDataOutputPath;
 
-    public DirectoryMapper(String aDropboxPublicDirectoryRoot,
+    public DirectoryMapper(
+            String aDropboxPublicDirectoryRoot,
             String aDropboxPublicRootURL,
             String aDirectoryMapOutputPath)
     {
@@ -34,8 +34,8 @@ public class DirectoryMapper
         m_DirectoryMapOutputPath = aDirectoryMapOutputPath + "json/directorymap/";
         m_MetaDataOutputPath = aDirectoryMapOutputPath + "json/";
 
-        System.out.print(
-                "DropboxPublicDirectoryRoot: " + m_DropboxPublicDirectoryRoot
+        System.out.print(""
+                + "DropboxPublicDirectoryRoot: " + m_DropboxPublicDirectoryRoot
                 + "\nDropboxPublicRootURL: " + m_DropboxPublicRootURL
                 + "\nDirectoryMapOutputPath: " + m_DirectoryMapOutputPath);
 
@@ -43,35 +43,26 @@ public class DirectoryMapper
         writeMetaData();
     }
 
+    // This implementation is ridiculous. Repalce with a json writer from simple-json
     /**
-     * maps directory specified at aPath
-     * recursively called on child directories
+     * maps directory specified at aPath recursively called on child directories
      */
     private void mapRecursive(String aPath)
     {
         String URLPath = m_DropboxPublicDirectoryRoot;
 
-        System.out.print("Mapping \"" + URLPath + "\"\n");
+        //System.out.print("Mapping \"" + URLPath + "\"\n");
 
         File directory = new File(aPath);
 
-        FileFilter directoryFilter = (File f) -> f.isDirectory();
-        FileFilter fileFilter = (File f) -> f.isFile();
+        File[] fileList = directory.listFiles((File f) -> f.isFile());
+        File[] directoryList = directory.listFiles((File f) -> f.isDirectory());
 
-        File[] fileList = directory.listFiles(fileFilter);
-        File[] directoryList = directory.listFiles(directoryFilter);
-
-        for (File f : fileList)
-        {
-            System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
-        }
-
-        System.out.print("");
+        //for (File f : fileList)
+          //  System.out.print(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
 
         for (File f : directoryList)
-        {
             mapRecursive(f.getPath());
-        }
 
         // Render directory and content file
         File file = new File(m_DirectoryMapOutputPath + URLPath);
@@ -97,9 +88,7 @@ public class DirectoryMapper
                 bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, "") + "\"");
 
                 if (directoryList[directoryList.length - 1] != f)
-                {
                     bw.write(",");
-                }
 
                 bw.newLine();
             }
@@ -114,9 +103,7 @@ public class DirectoryMapper
                 bw.write("\"" + f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL) + "\"");
 
                 if (fileList[fileList.length - 1] != f)
-                {
                     bw.write(",");
-                }
 
                 bw.newLine();
             }
@@ -150,6 +137,15 @@ public class DirectoryMapper
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
 
+            ////////////////////////////////////////////////
+            JSONObject jsRoot = new JSONObject();
+            jsRoot.put("timestamp", "zipzap");
+            
+            System.out.print(Thread.currentThread().getStackTrace()[1].getMethodName()+"\nTESTEST\n\n");
+            System.out.print(jsRoot.toString());
+            System.out.print("\n\n");
+            ////////////////////////////////////////////////////////
+            
             //filestart
             bw.write("{\n");
 

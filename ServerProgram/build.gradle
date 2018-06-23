@@ -42,9 +42,8 @@ buildConfig { // Static class "jfc.BuildInfo" generated @ build time
     packageName = "jfc"
     clsName = 'BuildInfo'
     charset = 'UTF-8' 
-        
+    
     buildConfigField 'String', 'Branch', "${execshell("git rev-parse --abbrev-ref HEAD")}"
     buildConfigField 'String', 'Commit', "${execshell("git rev-parse HEAD")}"    
-    buildConfigField 'String', 'Date', "${new java.util.Date(System.currentTimeMillis())}"
+    buildConfigField 'String', 'Date',   "${new java.util.Date(System.currentTimeMillis())}"
 }
-    
