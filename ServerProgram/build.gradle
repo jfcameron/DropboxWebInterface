@@ -10,6 +10,8 @@ plugins {
     id 'de.fuerstenau.buildconfig' version '1.1.8'       // Build-time java code generator
 }
 
+apply from: 'jfc.gradle'
+
 dependencies {
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'       
@@ -23,18 +25,7 @@ repositories { // In this section you declare where to find [remote] dependencie
 
 mainClassName = 'jfc/Application' // the main class for the application
 
-//Executed relative to the root project dir
-def execshell(String aShellCommand) {
-    def proc = ["/bin/sh", "-c", "cd ${rootProject.projectDir.toString()};${aShellCommand}"].execute()
-    def sout = new StringBuilder(), serr = new StringBuilder()
-    
-    proc.consumeProcessOutput(sout, serr)
-    proc.waitForOrKill(1000)
-    
-    if ("$serr".size() != 0) throw new RuntimeException("a shell command \"$aShellCommand\" had errors: \"$serr\"")
-    
-    return sout.replaceAll("\n","")
-}
+
 
 buildConfig { // Static class "jfc.BuildInfo" generated @ build time
     appName = project.name   
@@ -43,7 +34,7 @@ buildConfig { // Static class "jfc.BuildInfo" generated @ build time
     clsName = 'BuildInfo'
     charset = 'UTF-8' 
     
-    buildConfigField 'String', 'Branch', "${execshell("git rev-parse --abbrev-ref HEAD")}"
-    buildConfigField 'String', 'Commit', "${execshell("git rev-parse HEAD")}"    
+    buildConfigField 'String', 'Branch', "${jfc.execshell("git rev-parse --abbrev-ref HEAD")}"
+    buildConfigField 'String', 'Commit', "${jfc.execshell("git rev-parse HEAD")}"    
     buildConfigField 'String', 'Date',   "${new java.util.Date(System.currentTimeMillis())}"
 }
