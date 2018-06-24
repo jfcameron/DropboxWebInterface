@@ -25,5 +25,7 @@
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "hoek": "^5.0.3"
+  }
 }
