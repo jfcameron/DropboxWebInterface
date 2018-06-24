@@ -1,0 +1,10 @@
+/* © 2017 Joseph Cameron - All Rights Reserved
+// Project: CSS3DRenderer
+// Created on 2017-12-01. */
+
+body
+{
+    background: rgb(100, 100, 100);
+	overflow: hidden;
+	margin:0 auto;
+}
