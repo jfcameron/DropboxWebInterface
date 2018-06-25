@@ -21,6 +21,7 @@ module.exports = (env) =>
                 path.resolve('./src/css'),
                 path.resolve('./src/img'),
                 path.resolve('./src/html'),
+                path.resolve('./src/js'),
 
 //                path.resolve('./../Engine/src/'),
             ]

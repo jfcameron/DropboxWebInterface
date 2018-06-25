@@ -1,0 +1,698 @@
+/* 
+    Filename: Main.css
+    Description: defines css style for Main.html
+    
+*/
+#wrapper
+{
+    /* Display */
+    /*display: inline-block;*/
+    background: #101010;
+    
+    /* Position, size */
+    position:relative;
+    top:-10px;
+    /*left:-8px;*/
+    
+    /*left:15%; */
+    /*width:70%;*/
+    
+    min-width: 500px;
+    max-width: 1100px;
+    
+    margin-left: auto ;
+    margin-right: auto ;
+    
+    padding:0px;
+
+}
+
+#main
+{
+    /* Display */
+    display: block;
+    background: #1f1f1f;
+    
+    /* Position, size */
+    position:relative;
+    width:92%;
+    top:30px;
+    
+    /*height:5600px;*/
+    min-height:400px;
+    
+    /* Padding */
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    
+
+    
+}
+
+#header
+{
+    /* Display */
+    display: block;
+    background: #0f0f0f;
+    
+    /* Position, size */
+    position:relative;
+    width:92%;
+    top:5px;
+    height:0px;
+    
+    /* Padding */
+    margin-left: auto;
+    margin-right: auto;
+    
+    padding-left: 0px;
+    padding-right: 0px;
+   
+    /* Font */
+    letter-spacing: 0px  ;
+    text-align:     center ;
+    font-size:      10pt ;
+    color:          #505050 ;
+    
+}
+
+#footer
+{
+    /* Display */            
+    display: block;          
+    background: #101010;   
+                             
+    /* Position, size */     
+    position:relative;       
+    /*top:40px;*/
+    bottom:-15px;
+    min-height: 75px;
+    width:100%;  
+                             
+    /* Padding */            
+    margin-left: auto;       
+    margin-right: auto;
+    padding-top: 10px;    
+                             
+    /* Font */               
+    letter-spacing: 0px  ;   
+    text-align:     center ; 
+    font-size:      10pt ;   
+    color:          #505050 ;
+    
+}
+
+#attributions
+{
+    /* Display */            
+    display: block;          
+    /*background: #101010;   */
+                             
+    /* Position, size */     
+    position:absolute;       
+    bottom:5px;
+    /*left:75%;*/
+                             
+    /* Padding */            
+    padding-top: 10px;     
+    width:97%;
+    min-width: 50%;
+
+    /*width: 96.5%;*/    
+                             
+    /* Font */               
+    letter-spacing: 0px  ;   
+    text-align:     right ; 
+    font-size:      7pt ;   
+    color:          #505050 ;
+
+}
+
+#tech
+{
+    /* Position and size */    
+    position:relative;
+   
+    top:-12px;
+    
+    //background: #0f0f0f;
+    
+    margin-left:    15px;
+    letter-spacing: 0px  ;
+    text-align:     left ;
+    font-size:      8pt ;
+    color:          #757575 ;
+
+}
+
+#canvas
+{
+    /* Position and size */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+    height:100%;/*280px*/
+    
+    background: #000000;
+    
+}
+
+#bgCanvas
+{
+    /* Position and size */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+    position: fixed;
+    width: 100%;
+    height: 125%;
+    top: 0px;
+    right: 0px;
+    
+    background: #000000;
+    
+}
+
+#stagingLabel
+{
+    /* Position and size */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:  18pt   ;
+    position: fixed;
+    top: 0px;
+    right:1%;
+    
+}
+
+#video
+{
+    display: inline ;
+    border:  0px solid ;
+    width:   300px ;
+    height:  225px ;
+
+}
+
+#caption    /* Used to contain iframe & caption or image & caption. */
+{   
+    /*  Background and spacing  */
+    display:            table     ;
+    border:             0px solid ;
+    background-color:   #2f2f2f   ;
+    margin-left:        auto      ;
+    margin-right:       auto      ;
+    
+    position: relative;
+    
+    /* Border style */
+    /*border-radius: 5px;
+    padding: 0px 1px; */
+    border: 15px;
+    padding: 5px 10px; 
+    
+    /*  Text properties */
+    text-align: center ;
+    font-size:  12pt   ;
+
+}
+
+#previewImage
+{
+    width: 100%;
+    height: 100%;
+    display: inline;
+
+}
+
+#previewVideo
+{
+    width: 100%;
+    height: 100%;
+    display: inline;
+    border: 0px solid;
+    background: #2f2f2f;
+
+}
+
+.instructions
+{
+    z-index: 1;
+    position: relative;
+    top: -50px;
+
+}
+
+#previewImageWide
+{
+    width:   225px ;
+    /*height:  175px ;*/
+    /*                */
+    /*width: 100%;    */
+
+
+}
+
+/****************/
+
+table
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+ 
+}
+
+td,th 
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+/*tr:hover {background-color: #ddd;}*/
+
+tr 
+{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+    
+    
+}
+
+ul
+{
+list-style-type: none;
+}
+
+body
+{
+    /*zeroing defaults*/
+    margin: 0; padding: 0;
+    
+    /*TODO: add more defaults*/
+
+    /*min-width: 700px;*/
+
+    /* Background */
+    /*background-image: url("../Textures/bgtest.png");*/
+    /*background-image: url("../Textures/lodyas.png");*/
+    background-color: 000000; /*#101A1A;*/
+    /*background-size: 256px;*/
+    background-position: center bottom;
+    background-repeat:repeat; 
+    background-attachment: scroll;
+    
+    background-position: 0% 20%; 
+    
+    height:800px;
+    
+    /* Font */
+    //font-family:    helvetica, arial, sans-serif ;
+    //font-family: Century Gothic, sans-serif;
+    //font-family: Georgia, sans-serif;
+    font-family: Verdana, Geneva, sans-serif;
+    
+    font-size:      15pt ;
+    color:          grey ;
+    letter-spacing: -0.25px  ;
+    text-align:     left ;    
+    
+    font-weight: normal;
+    
+   
+
+}
+
+/* BG scroll animation */
+@keyframes animatedBackground 
+{
+	from { background-position: 0 0; }
+	to { background-position: 256px -256px; }
+
+}
+
+#background
+{
+    /*animation: animatedBackground 8.5s linear infinite;*/
+
+    position: fixed;
+    background-color: #000000;/*#101A1A;*/
+    /*background-size: 256px;*/
+    background-position: center bottom;
+    background-repeat:repeat; 
+    /*background-attachment: fixed;*/
+    
+    width: 100%;
+    height: 100%;
+    
+    top: 0px;
+    right: 0px;
+    
+}
+
+iframe 
+{
+    display: none;
+
+}
+
+h1
+{
+    font-size:  15pt;
+    background: #2f2f2f;
+	padding-left:   20.0px;
+    padding-top:     2.5px;
+    padding-bottom:  2.5px;
+	color: #BBBBBB;
+    
+    text-shadow:
+	 0.0px  2.0px 0 #000000,
+	-0.5px -0.5px 0 #000000,
+	 0.5px -0.5px 0 #000000,
+	-0.5px  0.5px 0 #000000,
+	 0.5px  0.5px 0 #000000;
+     
+     font-family: Impact, Charcoal, sans-serif;
+     letter-spacing: 1px  ;
+     font-weight: normal;
+
+}
+
+h2
+{
+    font-size:  26pt;
+    text-align: center ;
+    //background: #2f2f2f;
+    
+    letter-spacing: 3px;
+    
+    text-shadow:
+	 0.0px  2.0px 0 #000000,
+	-0.5px -0.5px 0 #000000,
+	 0.5px -0.5px 0 #000000,
+	-0.5px  0.5px 0 #000000,
+	 0.5px  0.5px 0 #000000;
+	
+}
+
+p
+{
+    font-size: 12pt;
+    padding-left:  5px;
+    padding-right: 5px;
+	margin: 0 0 30px 0; 
+    /*text-indent: 10px;*/
+    
+}
+
+image
+{
+    width:100%;
+    height:100%;
+    
+}
+
+#contenttd
+{
+    background-color: #000000;
+    
+}
+
+.entry
+{
+    text-align:left;
+    
+}
+
+.entry__title
+{
+    display:inline-block;
+    
+}
+
+.entry__buttons
+{
+    float:right;
+    height: 26px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+
+}
+
+.entry__buttons img
+{
+    padding-left: 5px;
+    height: 100%;
+    
+}
+
+/* Div with fixed ratio */
+.RatioWrapper
+{
+    min-width: 50%;
+    width: 100%;
+    /* whatever width you want */
+    display: inline-block;
+    position: relative;
+
+}
+
+.RatioWrapper:after 
+{
+    padding-top: 35.0%;
+    /* ?? ratio */
+    display: block;
+    content: '';
+
+}
+
+.RatioContent
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* fill parent */
+    background-color: deepskyblue;
+    /* let's see it! */
+    color: white;
+
+}
+/* End of Div with fixed ratio */
+
+/* fixed ratio Images */
+.PreviewImageRatioWrapper
+{
+    min-width: 30%;
+    width: 30%;
+    /* whatever width you want */
+    display: inline-block;
+    position: relative;
+
+}
+
+.PreviewImageRatioWrapper:after 
+{
+    padding-top: 90.0%;
+    /* ?? ratio */
+    display: block;
+    content: '';
+
+}
+
+.PreviewImageRatioContent
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* fill parent */
+    background-color: deepskyblue;
+    /* let's see it! */
+    color: white;
+
+}
+/* End of fixed ratio Images */
+
+
+
+/*  Link styling    */
+a:link {text-decoration:none;}   
+a:visited {text-decoration:none;} 
+a:hover {text-decoration:underline;}  
+a:active {text-decoration:underline;}  
+a{color: #7788FF;}
+
+a.readmore
+{
+    display: inline-block;
+
+}
+
+a.readmore img
+{
+    display: inline-block;
+    padding-left: 5px;
+    height: 16px;
+
+}
+
+a.github img
+{
+    display: inline-block;
+    padding-left: 5px;
+    height: 16px;
+
+}
+
+/* 
+    Filename: overrides.css
+    Description: article overrides
+    
+*/
+#video
+{
+    /* Position and size */
+    display: block;
+    
+    //min-width:475px;
+    //min-height:356.6px;
+    
+    width:100%;
+    height:100%;
+    
+    /* Border style */
+    //border: 15px;
+    //padding: 10px 10px; 
+    background: #2f2f2f;
+    
+}
+
+#canvas
+{
+    width:100%;
+    height:100%;
+    
+}
+
+#unityPlayer
+{
+    width:100%;
+    height:100%;
+    background:#FFFFFF;
+
+}
+
+#ArticleHeader
+{
+    font-size:  15pt;
+    background: #2f2f2f;
+	padding-left:   20.0px;
+    padding-top:     12px;
+    padding-bottom:   4px;
+	color: #BBBBBB;
+    
+    text-shadow:
+	 0.0px  2.0px 0 #000000,
+	-0.5px -0.5px 0 #000000,
+	 0.5px -0.5px 0 #000000,
+	-0.5px  0.5px 0 #000000,
+	 0.5px  0.5px 0 #000000;
+     
+     font-family: Impact, Charcoal, sans-serif;
+     letter-spacing: 1px  ;
+     font-weight: normal;
+    
+}
+
+#ArticleHeaderSpacer
+{
+    color: #FFFFFF;
+    height:5px;
+    
+}
+
+img
+{
+    width:  200px;
+    height: 200px;
+    margin: 10px 15px 15px 0px;
+    
+}
+
+.left
+{
+    float: left;
+
+}
+
+.right
+{
+    float: right; 
+
+}
+
+.center
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+code
+{
+	font-size: 15px;
+
+}
+
+/* Ratio maintainer */
+.RatioWrapper
+{
+    width: 100%;
+    /* whatever width you want */
+    display: inline-block;
+    position: relative;
+
+}
+
+.RatioWrapper:after 
+{
+    padding-top: 56.25%;
+    /* 16:9 ratio */
+    display: block;
+    content: '';
+
+}
+
+.RatioContent
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* fill parent */
+    background-color: #000000;
+    /* let's see it! */
+    color: white;
+
+}
+
+/* End Ratio Maintainer */
