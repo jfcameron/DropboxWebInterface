@@ -24,15 +24,3 @@ repositories { // In this section you declare where to find [remote] dependencie
 }
 
 mainClassName = 'jfc/Application' // the main class for the application
-
-buildConfig { // Static class "jfc.BuildInfo" generated @ build time
-    appName = project.name   
-    version = project.version
-    packageName = "jfc"
-    clsName = 'BuildInfo'
-    charset = 'UTF-8' 
-    
-    buildConfigField 'String', 'Branch', "${jfc.execshell("git rev-parse --abbrev-ref HEAD")}"
-    buildConfigField 'String', 'Commit', "${jfc.execshell("git rev-parse HEAD")}"    
-    buildConfigField 'String', 'Date',   "${new java.util.Date(System.currentTimeMillis())}"
-}

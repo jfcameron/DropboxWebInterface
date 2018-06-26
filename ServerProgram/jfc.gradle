@@ -1,5 +1,7 @@
 ext.jfc = [
-    //Executed relative to the root project dir
+    /// \Description Run a shell script
+    /// \Note Executed relative to the root project dir
+    /// \Exception Throws if the command produces any output in standard error
     execshell: {String aShellCommand ->
         def proc = ["/bin/sh", "-c", "cd ${rootProject.projectDir.toString()};${aShellCommand}"].execute()
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -12,3 +14,15 @@ ext.jfc = [
         return sout.replaceAll("\n","")
     }      
 ]
+
+buildConfig { /// \Description common configuration for de.fuerstenau.buildconfig plugin
+    appName = project.name   
+    version = project.version
+    packageName = "jfc"
+    clsName = 'BuildInfo'
+    charset = 'UTF-8' 
+    
+    buildConfigField 'String', 'Branch', "${jfc.execshell("git rev-parse --abbrev-ref HEAD")}"
+    buildConfigField 'String', 'Commit', "${jfc.execshell("git rev-parse HEAD")}"    
+    buildConfigField 'String', 'Date',   "${new java.util.Date(System.currentTimeMillis())}"
+}

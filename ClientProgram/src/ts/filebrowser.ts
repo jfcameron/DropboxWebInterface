@@ -7,7 +7,6 @@ import resources from "resources"
 */
 class FileBrowser
 {
-    static readonly c_TemplateDirectory: string         = "json/templates/";
     static readonly c_DirectoryListsDirectory: string   = "json/directorymap/";
     static readonly c_MetaDataDirectory: string         = "json/";
     
