@@ -18,7 +18,7 @@ public class Application
         printBuildData();
 
         if (loadSettings())
-            new DirectoryMapper(
+            new DirectoryMapper( //This looks bizzare. Should be a static object or separate ctor with map behaviour
                     m_DropboxPublicDirectoryRoot,
                     m_DropboxPublicRootURL,
                     m_DirectoryMapOutputPath);
@@ -31,7 +31,7 @@ public class Application
     private static void printBuildData()
     {
         System.out.print(""
-                + BuildInfo.NAME + " " + BuildInfo.VERSION
+                + BuildInfo.NAME + " v" + BuildInfo.VERSION
                 + "\nbuild date: " + BuildInfo.Date
                 + "\ngit info: " + BuildInfo.Branch + ", " + BuildInfo.Commit
                 + "\nAuthor: jfcameron.github.io"

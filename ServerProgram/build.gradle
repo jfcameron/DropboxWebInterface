@@ -25,8 +25,6 @@ repositories { // In this section you declare where to find [remote] dependencie
 
 mainClassName = 'jfc/Application' // the main class for the application
 
-
-
 buildConfig { // Static class "jfc.BuildInfo" generated @ build time
     appName = project.name   
     version = project.version

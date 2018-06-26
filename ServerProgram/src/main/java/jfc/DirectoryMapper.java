@@ -38,7 +38,7 @@ public class DirectoryMapper
         System.out.print(""
                 + "DropboxPublicDirectoryRoot: " + m_DropboxPublicDirectoryRoot
                 + "\nDropboxPublicRootURL: " + m_DropboxPublicRootURL
-                + "\nDirectoryMapOutputPath: " + m_DirectoryMapOutputPath);
+                + "\nDirectoryMapOutputPath: " + m_DirectoryMapOutputPath + "\n");
 
         mapRecursive(m_DropboxPublicDirectoryRoot);
         writeMetaData();
@@ -59,10 +59,14 @@ public class DirectoryMapper
         for (final File f : directoryList)
             mapRecursive(f.getPath());
 
-        final File file = new File(m_DirectoryMapOutputPath + URLPath);
+        System.out.print("Mapping " + aPath + "\n");
+        
+        final String pathToSubdirectoryRelativeToRootDirectory = aPath.replace(URLPath, "");
+
+        final File file = new File(m_DirectoryMapOutputPath + pathToSubdirectoryRelativeToRootDirectory);
         file.mkdirs();
 
-        final File fout = new File(m_DirectoryMapOutputPath + URLPath + "/content.json");
+        final File fout = new File(m_DirectoryMapOutputPath + pathToSubdirectoryRelativeToRootDirectory + "" + "/content.json");
 
         try (final FileOutputStream fos = new FileOutputStream(fout))
         {
