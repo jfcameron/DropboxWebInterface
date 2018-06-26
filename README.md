@@ -12,7 +12,7 @@ refreshless web app that allows browsing, streaming and downloading of multimedi
 * file download links.
 
 ## Explanation
-The project is made of two separate programs: a Java program meant to be run as a cron job on the server, a JS program, served on a static site.
+The project is made of two separate programs: 1) a Java program meant to be run as a cron job, whose output is then uploaded to the server and 2) a JS program, uploaded once to the static site.
 The Java program creates a JSON representation of your content directories. The JS program fetches these JSON files and uses them to retrieve the content. 
 
 ## Setup:
