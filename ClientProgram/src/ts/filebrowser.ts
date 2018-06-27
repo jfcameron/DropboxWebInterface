@@ -3,74 +3,104 @@
 import resources from "resources"
 
 /**
-* @description Renders directories as html lists
+* @description browse content directory tree. detect file type and open appropriate view (if one exists)
 */
 class FileBrowser
 {
-    static readonly c_DirectoryListsDirectory: string   = "json/directorymap/";
-    static readonly c_MetaDataDirectory: string         = "json/";
+    static readonly c_DirectoryListsDirectory: string = "json/directorymap/";
+    static readonly c_MetaDataDirectory: string =       "json/";
     
-    private m_Template: any = [];
-    private m_SiteContentRootPath: any;
-    
-    private appendProceduralDataToJSONObject(aFileName: string, aJSONObject: any)
-    {
-        let buffer = "";
-        let path = "";
+    static readonly subDirectoryTableBody: HTMLElement =    document.getElementById("subDirectories"); // If I move towards constructing these (i am) these shuld not be static
+    static readonly directoryFilesTableBody: HTMLElement =  document.getElementById("directoryItems");
+    static readonly currentDirectoryNameNode: HTMLElement = document.getElementById("directoryName");
 
-        buffer += "<a href='javascript:fileBrowser.renderDirectory(\"" + path + "\")'>"
-        buffer += "Public";
-        buffer += "</a> / ";
+    private m_SiteContentRootPath: string;
+    
+    /**
+     * @desc renders the path to the current working directory (relative to content root)
+     * @param aFileName 
+     * @param aJSONObject
+     * @Warn Must be rewritten 
+     */
+    private renderPathToCurrentDirectory(aFileName: string, aJSONObject: any)
+    {
+        while (FileBrowser.currentDirectoryNameNode.hasChildNodes()) FileBrowser.currentDirectoryNameNode.removeChild(FileBrowser.currentDirectoryNameNode.lastChild);
+
+        const renderPathSegment = (aDirName: string, aLinkPath: string) =>
+        {
+            const rootNode = document.createElement("a");
             
+            rootNode.textContent = `${aDirName}/`;
+
+            rootNode.addEventListener("click", ()=>
+            {
+                this.renderDirectory(aLinkPath);
+            });
+
+            return rootNode;
+        };
+
+        FileBrowser.currentDirectoryNameNode.appendChild(renderPathSegment("Public", "/"));
+
+        let currentPath: string = "";
+
         aFileName.split("/").forEach((item: string) =>
         {
             if (item.length > 0)
             {
-                path += item + "/";
-                    
-                buffer += "<a href='javascript:fileBrowser.renderDirectory(\"" + path + "\")'>";
-                buffer += item;
-                buffer += "</a> / ";
+                currentPath += `${item}/`;
+
+                console.log(`item: ${item}, path: ${currentPath}`);
+
+                FileBrowser.currentDirectoryNameNode.appendChild(renderPathSegment(item, `${currentPath}`));
             }
         });
-            
-        aJSONObject.directoryName = buffer;
     };
     
-    private decorateJSONData(aHTMLObject: any, aObjectName: any, aRawJSONData: any, aContentDirectory: any)
+    /**
+     * @desc adds an individual directory item to the dom  This is messy
+     * @param aDirectoryItemTable 
+     * @param aItemName 
+     * @param aClickCallback 
+     */
+    private renderDirectoryItem(aDirectoryItemTable: HTMLElement, aItemName: string, aClickCallback: () => void)
     {
-        let rValue = "";
-        
+        const tableRow = document.createElement("tr");
+        const lableData = document.createElement("td");
+        const linkData = document.createElement("td");
+        const link = document.createElement("a");
+
+        lableData.textContent = "???";
+
+        //link.setAttribute('href', "");
+        link.textContent = aItemName;
+        link.addEventListener("click", aClickCallback); 
+
+        linkData.appendChild(link);
+        tableRow.appendChild(lableData);
+        tableRow.appendChild(linkData);
+        aDirectoryItemTable.appendChild(tableRow);
+    }
+
+    /**
+     * @desc Renders current directory contents  This is mEssy
+     * @param aHTMLObject 
+     * @param aObjectName 
+     * @param aRawJSONData 
+     * @param aContentDirectory 
+     */
+    private renderDirectoryContents(aHTMLObject: HTMLElement, aObjectName: any, aRawJSONData: any, aContentDirectory: any)
+    {
         switch(aObjectName)
         {
-            case("directoryName"):
-            {
-                rValue += aRawJSONData; //What is the intention here?
-            }
-            break;
-            
             case("subDirectories"):
             {
                 aRawJSONData.forEach((item: any) =>
                 {
-                    const tableRow = document.createElement("tr");
-                    const lableData = document.createElement("td");
-                    const linkData = document.createElement("td");
-                    const link = document.createElement("a");
-
-                    link.setAttribute('href', "");
-                    link.innerHTML = item.split("/").pop();
-                    link.addEventListener("click", ()=>
+                    this.renderDirectoryItem(aHTMLObject, item.split("/").pop(), ()=>
                     {
-                        while (aHTMLObject.hasChildNodes()) aHTMLObject.removeChild(aHTMLObject.lastChild);
-
                         this.renderDirectory(item);
                     });
-
-                    linkData.appendChild(link);
-                    tableRow.appendChild(lableData);
-                    tableRow.appendChild(linkData);
-                    aHTMLObject.appendChild(tableRow);
                 });
             } 
             break;
@@ -79,25 +109,23 @@ class FileBrowser
             {
                 aRawJSONData.forEach((item: any) =>
                 {
-                    //Rewrite me
-                    rValue += "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('"
-                    +
-                        item//"##CONTENT_PATH##"
-                    +
-                    "')\"><!--<div style='height:100%;width:100%'>-->"
-                    +
-                        item.split("/").pop()//"##CONTENT_NAME##"
-                    +
-                    "<!--</div>--></a></td></tr>";                    
+                    this.renderDirectoryItem(aHTMLObject, item.split("/").pop(), ()=>
+                    {
+
+                        console.log("You clicked a file item!");
+                    });
                 });
             } 
             break;
         }
-        
-        //if (rValue !== undefined) aHTMLObject.innerHTML = rValue;
     };
     
-    public renderFile(aFileName: any)
+    /**
+     * @desc opens a new tab with the correct view on the selected file
+     * @param aFileName 
+     * @warn This should be revisited. I no longer like the new tab thing.
+     */
+    public renderFile(aFileName: string)
     {
         const fileType = aFileName.split(".").pop();
       
@@ -142,27 +170,26 @@ class FileBrowser
     };
     
     /**
+     * @Warning: This name is incredibly misleading. This just sets up the fetch for the current directory contents and appends the real work as success callbacks
      * name: renderContentFile
      * args: aFileName
      * description: fetches JSON data from the server
      * iterates each key in the JSON object and applies data to document IDs with
      * key name
     */
-    public renderDirectory(aFileName: any)
+    public renderDirectory(aFileName: string)
     {
-        //convert directory name in arg to json content name format
-        var fileName = aFileName;
-        fileName = FileBrowser.c_DirectoryListsDirectory + fileName + "/content.json";
-        
-        //generate content directory for links
-        var contentDirectory = this.m_SiteContentRootPath + aFileName + '/';
+        const contentDirectory = this.m_SiteContentRootPath + aFileName + '/';
+
+        while (FileBrowser.subDirectoryTableBody.hasChildNodes()) FileBrowser.subDirectoryTableBody.removeChild(FileBrowser.subDirectoryTableBody.lastChild);
+        while (FileBrowser.directoryFilesTableBody.hasChildNodes()) FileBrowser.directoryFilesTableBody.removeChild(FileBrowser.directoryFilesTableBody.lastChild);
             
         resources.fetchJSONFile
         (
-            fileName,
-            (jsonData: any) =>
-           {
-                this.appendProceduralDataToJSONObject(aFileName,jsonData);
+            `${FileBrowser.c_DirectoryListsDirectory}${aFileName}/content.json`, //fileName,
+            (jsonData: {[field: string]: string}) =>
+            {
+                this.renderPathToCurrentDirectory(aFileName,jsonData);
                 
                 for (const key in jsonData) 
                 {
@@ -170,17 +197,17 @@ class FileBrowser
                     
                     const documentElement = document.getElementById(key);
                     
-                    if (documentElement != null) this.decorateJSONData(documentElement, key, jsonData[key], contentDirectory);
+                    if (documentElement != null) this.renderDirectoryContents(documentElement, key, jsonData[key], contentDirectory);
                 }
             }
         );
         
-        window.history.pushState("object or string", "d", '?d=' + aFileName);   
+        resources.writeQueryStringParameter("d", aFileName);
     };
     
     constructor()
     {
-        const fileName = FileBrowser.c_MetaDataDirectory + "metadata" + ".json";
+        const fileName = `${FileBrowser.c_MetaDataDirectory}/metadata.json`;
         
         resources.fetchJSONFile
         (
@@ -191,7 +218,9 @@ class FileBrowser
 
                 document.getElementById("timestampValue").innerHTML = jsonData["timestamp"]; //This is ok but should the server really be styling output?
                 
-                this.renderDirectory(resources.readQueryStringParameter("d")? resources.readQueryStringParameter("d"): "/");
+                const dir = resources.readQueryStringParameter("d"); 
+
+                this.renderDirectory(dir ? dir : "/");
             }
         );
     }   

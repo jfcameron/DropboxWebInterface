@@ -12,20 +12,31 @@ module resources
      * @Warning UB if the requested parameter is not present
      * @Warning This function must be unit tested
      */
-    export function readQueryStringParameter(param: string) 
+    export function readQueryStringParameter(param: string): string | undefined
     {
         const vars: {[key: string]: string} = {};
     
-	    window.location.href.replace(location.hash, "").replace(/[?&]+([^=&]+)=?([^&]*)?/gi,
-            (m: string, key: string, value: string): any =>
+	    window.location.href.replace(location.hash, "").replace(/[?&]+([^=&]+)=?([^&]*)?/gi, //replace is being used to iterate substrings not replace. replace replace with something else
+            (substring: string, key: string, value: string): any =>
             {
                 vars[key] = value !== undefined ? value : "";
 		    }
 	    );
+            
+        return vars[param]; //the intention here is to return undefined if vars does not contain param. This must be tested
+    }
 
-        if (param) return vars[param] ? vars[param] : null;	
-    
-	    return vars;
+    /**
+     * @description writes a value to a param in the query string following the current page url
+     * @Warning This does not work as intended.
+     * @Warning This needs unit tests
+     */
+    export function writeQueryStringParameter(name: string, value: string): void
+    {
+        //1: convert query string into a {[name: string]: string}
+        //2: iterate ^ if ^[name] then write value else append to end
+
+        window.history.pushState("object or string", "d", `?${name}=${value}`); //This only supports one param...  
     }
 
     /**
@@ -37,7 +48,7 @@ module resources
      * @Warning Requires tests
      * @Warning What happens if the call fails? This needs fixing
     */
-    export function fetchJSONFile(aFileName: string, aOnReadyCallbackFunction: any)
+    export function fetchJSONFile(aFileName: string, aOnReadyCallbackFunction: (jsonData: any) => void)
     {
         const xhttp = new XMLHttpRequest();
         
