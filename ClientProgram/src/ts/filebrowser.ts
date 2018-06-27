@@ -45,7 +45,7 @@ class FileBrowser
         {
             case("directoryName"):
             {
-                rValue += aRawJSONData;
+                rValue += aRawJSONData; //What is the intention here?
             }
             break;
             
@@ -53,15 +53,24 @@ class FileBrowser
             {
                 aRawJSONData.forEach((item: any) =>
                 {
-                    rValue += "<tr><td>Dir</td><td><a href=\"javascript:fileBrowser.renderDirectory('"
-                    +
-                        item//"##CONTENT_PATH##"
-                    +
-                    "')\"><!--<div style='height:100%;width:100%'>-->"
-                    +
-                        item.split("/").pop()//"##CONTENT_NAME##"
-                    +
-                    "<!--</div>--></a></td></tr>";    
+                    const tableRow = document.createElement("tr");
+                    const lableData = document.createElement("td");
+                    const linkData = document.createElement("td");
+                    const link = document.createElement("a");
+
+                    link.setAttribute('href', "");
+                    link.innerHTML = item.split("/").pop();
+                    link.addEventListener("click", ()=>
+                    {
+                        while (aHTMLObject.hasChildNodes()) aHTMLObject.removeChild(aHTMLObject.lastChild);
+
+                        this.renderDirectory(item);
+                    });
+
+                    linkData.appendChild(link);
+                    tableRow.appendChild(lableData);
+                    tableRow.appendChild(linkData);
+                    aHTMLObject.appendChild(tableRow);
                 });
             } 
             break;
@@ -70,6 +79,7 @@ class FileBrowser
             {
                 aRawJSONData.forEach((item: any) =>
                 {
+                    //Rewrite me
                     rValue += "<tr><td>File</td><td><a href=\"javascript:fileBrowser.renderFile('"
                     +
                         item//"##CONTENT_PATH##"
@@ -84,7 +94,7 @@ class FileBrowser
             break;
         }
         
-        if (rValue !== undefined) aHTMLObject.innerHTML = rValue;
+        //if (rValue !== undefined) aHTMLObject.innerHTML = rValue;
     };
     
     public renderFile(aFileName: any)
@@ -179,7 +189,7 @@ class FileBrowser
             {
                 this.m_SiteContentRootPath = jsonData["dropboxPublicRootURL"];
 
-                document.getElementById("timestampValue").innerHTML = jsonData["timestamp"];
+                document.getElementById("timestampValue").innerHTML = jsonData["timestamp"]; //This is ok but should the server really be styling output?
                 
                 this.renderDirectory(resources.readQueryStringParameter("d")? resources.readQueryStringParameter("d"): "/");
             }
