@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +59,7 @@ public class DirectoryMapper
             mapRecursive(f.getPath());
 
         System.out.print("Mapping " + aPath + "\n");
-        
+
         final String pathToSubdirectoryRelativeToRootDirectory = aPath.replace(URLPath, "");
 
         final File file = new File(m_DirectoryMapOutputPath + pathToSubdirectoryRelativeToRootDirectory);
@@ -85,7 +84,35 @@ public class DirectoryMapper
                     final JSONArray jsDirectoryItems = new JSONArray();
 
                     for (File f : fileList)
-                        jsDirectoryItems.add(f.getPath().replace(m_DropboxPublicDirectoryRoot, m_DropboxPublicRootURL));
+                    {
+                        final JSONObject currentItem = new JSONObject();
+
+                        currentItem.put("URL", f.getPath().replace(m_DropboxPublicDirectoryRoot, ""));
+
+                        String[] splitString = f.getPath().split("\\.");
+
+                        String type = "file";
+
+                        if (splitString.length > 1)
+                        {
+                            switch (splitString[splitString.length - 1].toLowerCase())
+                            {
+                                case "png":
+                                case "jpg":
+                                case "jpeg":
+                                case "gif":
+                                {
+                                    type = "image";
+                                }
+                                break;
+                            }
+                            System.out.print(type + "\n");
+                        }
+
+                        currentItem.put("Type", type);
+
+                        jsDirectoryItems.add(currentItem);
+                    }
 
                     jsRoot.put("directoryItems", jsDirectoryItems);
                 }
@@ -112,11 +139,18 @@ public class DirectoryMapper
             try (final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8")))
             {
                 final JSONObject jsRoot = new JSONObject();
+                final JSONObject jsTimeStamp = new JSONObject();
 
                 Calendar.getInstance().setTimeInMillis(System.currentTimeMillis());
 
-                jsRoot.put("timestamp",
-                        new SimpleDateFormat("hh:mm:ss a, dd日MM月yyyy年").format(Calendar.getInstance().getTime()));
+                jsTimeStamp.put("Year", Calendar.getInstance().get(Calendar.YEAR));
+                jsTimeStamp.put("Month", Calendar.getInstance().get(Calendar.MONTH));
+                jsTimeStamp.put("Day", Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                jsTimeStamp.put("Hour", Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                jsTimeStamp.put("Minute", Calendar.getInstance().get(Calendar.MINUTE));
+                jsTimeStamp.put("Second", Calendar.getInstance().get(Calendar.SECOND));
+
+                jsRoot.put("timestamp", jsTimeStamp);
 
                 jsRoot.put("dropboxPublicRootURL", m_DropboxPublicRootURL);
 

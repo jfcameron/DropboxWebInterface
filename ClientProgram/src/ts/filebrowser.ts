@@ -1,6 +1,7 @@
 // © 2018 Joseph Cameron - All Rights Reserved
 
 import resources from "resources"
+import "imageviewer"
 
 /**
 * @description browse content directory tree. detect file type and open appropriate view (if one exists)
@@ -16,11 +17,38 @@ class FileBrowser
 
     private m_SiteContentRootPath: string;
     
+    private renderTimeStamp(aTimeStampJSON: any)
+    {
+        document.getElementById("timestampValue").textContent = (() =>
+        { 
+            const hour: {number: number, m: string} = (() =>
+            {
+                let h = aTimeStampJSON["Hour"];
+
+                return h > 12 ? {number: h = h - 12, m: "pm"} : {number: h, m: "am"}; 
+            })();
+               
+            const month = (() =>
+            {
+                let m = aTimeStampJSON["Month"];
+
+                return m.length > 1 ? m = `0${m}` : m;
+            })();
+
+            const minute = aTimeStampJSON["Minute"];
+            const second = aTimeStampJSON["Second"];
+            const day =    aTimeStampJSON["Day"];
+            const year =   aTimeStampJSON["Year"];
+
+            return `${hour.number}:${minute}:${second} ${hour.m}, ${day}日${month}月${year}年`; 
+        })();
+    }
+
     /**
      * @desc renders the path to the current working directory (relative to content root)
      * @Warn Must be rewritten 
      */
-    private renderPathToCurrentDirectory(aFileName: string, aJSONObject: any)
+    private renderPathToCurrentDirectory(aDirectoryPath: string, aJSONObject: any)
     {
         while (FileBrowser.currentDirectoryNameNode.hasChildNodes()) FileBrowser.currentDirectoryNameNode.removeChild(FileBrowser.currentDirectoryNameNode.lastChild);
 
@@ -42,23 +70,21 @@ class FileBrowser
 
         let currentPath: string = "";
 
-        aFileName.split("/").forEach((item: string) =>
+        aDirectoryPath.split("/").forEach((item: string) =>
         {
             if (item.length > 0)
             {
                 currentPath += `${item}/`;
 
-                console.log(`item: ${item}, path: ${currentPath}`);
-
-                FileBrowser.currentDirectoryNameNode.appendChild(renderPathSegment(item, `${currentPath}`));
+                FileBrowser.currentDirectoryNameNode.appendChild(renderPathSegment(item, currentPath));
             }
         });
     };
 
     /**
-     * @desc Renders current directory contents  This is mEssy
+     * @desc Renders current directory contents
      */
-    private renderDirectoryContents(aHTMLObject: HTMLElement, aObjectName: any, aRawJSONData: any, aContentDirectory: any)
+    private renderDirectoryContents(aHTMLObject: HTMLElement, aContentList: string, aRawJSONData: [any], aContentDirectory: any)
     {
         /**
          * @desc adds an individual directory item to the dom
@@ -70,9 +96,8 @@ class FileBrowser
             const linkData = document.createElement("td");
             const link = document.createElement("a");
 
-            lableData.textContent = `${aLabelName}`;
+            lableData.textContent = aLabelName;
 
-            //link.setAttribute('href', "");
             link.textContent = aItemName;
             link.addEventListener("click", aClickCallback); 
 
@@ -82,11 +107,11 @@ class FileBrowser
             aDirectoryItemTable.appendChild(tableRow);
         }
 
-        switch(aObjectName)
+        switch(aContentList)
         {
             case("subDirectories"):
             {
-                aRawJSONData.forEach((item: any) =>
+                aRawJSONData.forEach((item: string) =>
                 {
                     renderDirectoryItem(aHTMLObject, "Dir", item.split("/").pop(), ()=>
                     {
@@ -96,13 +121,67 @@ class FileBrowser
             } 
             break;
             
-            case("directoryItems"):
+            case("directoryItems"): //This is most definitely a hack. Improve this.
             {
-                aRawJSONData.forEach((item: any) =>
+                aRawJSONData.forEach((item: {URL: string, Type: string}) =>
                 {
-                    renderDirectoryItem(aHTMLObject, "File", item.split("/").pop(), ()=>
+                    renderDirectoryItem(aHTMLObject, item["Type"], item["URL"].split("/").pop(), ()=>
                     {
-                        console.log("You clicked a file item!");
+                        const type = item["Type"];
+                        const url = `${this.m_SiteContentRootPath}${item["URL"]}`;
+                        
+                        if (type === "image")
+                        {
+                            const background = (() => 
+                            {
+                                const background = document.createElement("div");
+
+                                background.style.backgroundColor= "rgba(0, 0, 0, 0.7)"
+                                background.style.filter= "alpha(opacity=20)";
+                                background.style.width= "100%"; 
+                                background.style.height= "100%"; 
+                                background.style.zIndex= "10";
+                                background.style.top= "0"; 
+                                background.style.left= "0"; 
+                                background.style.position= "fixed"; 
+
+                                background.onclick = () =>
+                                {
+                                    console.log ("bg was pressed");
+                                    background.remove();
+                                };
+
+                                document.body.appendChild(background);
+
+                                return background;
+                            })();
+                            
+                            const image = (() =>
+                            {
+                                const image = document.createElement("img");
+
+                                image.src = url;
+
+                                image.style.position = "fixed";
+                                image.style.top = "50%";
+                                image.style.left = "50%";
+                                image.style.transform = "translate(-50%, -50%)";
+
+                                image.style.maxHeight = "90vh";
+                                image.style.maxWidth =  "100vw";
+
+                                image.onclick = (event: Event) =>
+                                {
+                                    console.log("image was clicked");
+
+                                    event.stopPropagation();
+                                };
+
+                                background.appendChild(image);
+
+                                return image;
+                            })();
+                        }
                     });
                 });
             } 
@@ -111,74 +190,21 @@ class FileBrowser
     };
     
     /**
-     * @desc opens a new tab with the correct view on the selected file
-     * @warn This should be revisited. I no longer like the new tab thing.
+     * @desc takes a path to a directory and renders its contents in the dom
      */
-    public renderFile(aFileName: string)
+    public renderDirectory(aDirectoryPath: string)
     {
-        const fileType = aFileName.split(".").pop();
-      
-        switch(fileType)
-        {
-            //Image viewer
-            case "png":
-            case "jpg":
-            {
-                window.open("./view/image/?f=" + aFileName + "", '_blank');
-            } 
-            break;
-            
-            //AV viewer
-            case "flv":
-            case "mp4":
-            case "webm":
-            case "mp3":
-            {
-                window.open("./view/video/?f=" + (aFileName), '_blank');
-            } 
-            break;
-            
-            //Document viewer
-            case "pdf":
-            case "odt":
-            case "ods":
-            case "odp":
-            case "doc":
-            case "txt":
-            case "md":
-            {
-                window.open("./view/document/?f=" + (aFileName), '_blank');
-            } 
-            break;
-            
-            default:
-            {
-                window.open(aFileName, '_blank');
-            }
-        }        
-    };
-    
-    /**
-     * @Warning: This name is incredibly misleading. This just sets up the fetch for the current directory contents and appends the real work as success callbacks
-     * name: renderContentFile
-     * args: aFileName
-     * description: fetches JSON data from the server
-     * iterates each key in the JSON object and applies data to document IDs with
-     * key name
-    */
-    public renderDirectory(aFileName: string)
-    {
-        const contentDirectory = this.m_SiteContentRootPath + aFileName + '/';
+        const contentDirectory = `${this.m_SiteContentRootPath}${aDirectoryPath}/`;
 
         while (FileBrowser.subDirectoryTableBody.hasChildNodes()) FileBrowser.subDirectoryTableBody.removeChild(FileBrowser.subDirectoryTableBody.lastChild);
         while (FileBrowser.directoryFilesTableBody.hasChildNodes()) FileBrowser.directoryFilesTableBody.removeChild(FileBrowser.directoryFilesTableBody.lastChild);
             
         resources.fetchJSONFile
         (
-            `${FileBrowser.c_DirectoryListsDirectory}${aFileName}/content.json`, //fileName,
-            (jsonData: {[field: string]: string}) =>
+            `${FileBrowser.c_DirectoryListsDirectory}${aDirectoryPath}/content.json`, 
+            (jsonData: {[field: string]: any}) =>
             {
-                this.renderPathToCurrentDirectory(aFileName,jsonData);
+                this.renderPathToCurrentDirectory(aDirectoryPath,jsonData);
                 
                 for (const key in jsonData) 
                 {
@@ -191,7 +217,7 @@ class FileBrowser
             }
         );
         
-        resources.writeQueryStringParameter("d", aFileName);
+        resources.writeQueryStringParameter("d", aDirectoryPath);
     };
     
     constructor()
@@ -205,12 +231,15 @@ class FileBrowser
             {
                 this.m_SiteContentRootPath = jsonData["dropboxPublicRootURL"];
 
-                document.getElementById("timestampValue").textContent = jsonData["timestamp"]; //This is ok but should the server really be styling output?
-                
-                const dir = resources.readQueryStringParameter("d"); 
+                this.renderTimeStamp(jsonData["timestamp"]);
 
-                this.renderDirectory(dir ? dir : "/");
-            }
+                this.renderDirectory((() => 
+                {
+                    const dir = resources.readQueryStringParameter("d"); 
+
+                    return  dir ? dir : "/";
+                })());
+            }        
         );
     }   
 }
