@@ -6,7 +6,6 @@ import "index.html"
 import "style.css"
 
 import "pure-min.css"
-import "view.css"
 import "main.css"  //Clean up this css stuff.
 
 import FileBrowser from "filebrowser"
