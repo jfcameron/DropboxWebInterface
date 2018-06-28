@@ -18,8 +18,6 @@ class FileBrowser
     
     /**
      * @desc renders the path to the current working directory (relative to content root)
-     * @param aFileName 
-     * @param aJSONObject
      * @Warn Must be rewritten 
      */
     private renderPathToCurrentDirectory(aFileName: string, aJSONObject: any)
@@ -56,48 +54,41 @@ class FileBrowser
             }
         });
     };
-    
-    /**
-     * @desc adds an individual directory item to the dom  This is messy
-     * @param aDirectoryItemTable 
-     * @param aItemName 
-     * @param aClickCallback 
-     */
-    private renderDirectoryItem(aDirectoryItemTable: HTMLElement, aItemName: string, aClickCallback: () => void)
-    {
-        const tableRow = document.createElement("tr");
-        const lableData = document.createElement("td");
-        const linkData = document.createElement("td");
-        const link = document.createElement("a");
-
-        lableData.textContent = "???";
-
-        //link.setAttribute('href', "");
-        link.textContent = aItemName;
-        link.addEventListener("click", aClickCallback); 
-
-        linkData.appendChild(link);
-        tableRow.appendChild(lableData);
-        tableRow.appendChild(linkData);
-        aDirectoryItemTable.appendChild(tableRow);
-    }
 
     /**
      * @desc Renders current directory contents  This is mEssy
-     * @param aHTMLObject 
-     * @param aObjectName 
-     * @param aRawJSONData 
-     * @param aContentDirectory 
      */
     private renderDirectoryContents(aHTMLObject: HTMLElement, aObjectName: any, aRawJSONData: any, aContentDirectory: any)
     {
+        /**
+         * @desc adds an individual directory item to the dom
+         */
+        const renderDirectoryItem = (aDirectoryItemTable: HTMLElement, aLabelName: string, aItemName: string, aClickCallback: () => void) =>
+        {
+            const tableRow = document.createElement("tr");
+            const lableData = document.createElement("td");
+            const linkData = document.createElement("td");
+            const link = document.createElement("a");
+
+            lableData.textContent = `${aLabelName}`;
+
+            //link.setAttribute('href', "");
+            link.textContent = aItemName;
+            link.addEventListener("click", aClickCallback); 
+
+            linkData.appendChild(link);
+            tableRow.appendChild(lableData);
+            tableRow.appendChild(linkData);
+            aDirectoryItemTable.appendChild(tableRow);
+        }
+
         switch(aObjectName)
         {
             case("subDirectories"):
             {
                 aRawJSONData.forEach((item: any) =>
                 {
-                    this.renderDirectoryItem(aHTMLObject, item.split("/").pop(), ()=>
+                    renderDirectoryItem(aHTMLObject, "Dir", item.split("/").pop(), ()=>
                     {
                         this.renderDirectory(item);
                     });
@@ -109,9 +100,8 @@ class FileBrowser
             {
                 aRawJSONData.forEach((item: any) =>
                 {
-                    this.renderDirectoryItem(aHTMLObject, item.split("/").pop(), ()=>
+                    renderDirectoryItem(aHTMLObject, "File", item.split("/").pop(), ()=>
                     {
-
                         console.log("You clicked a file item!");
                     });
                 });
@@ -122,7 +112,6 @@ class FileBrowser
     
     /**
      * @desc opens a new tab with the correct view on the selected file
-     * @param aFileName 
      * @warn This should be revisited. I no longer like the new tab thing.
      */
     public renderFile(aFileName: string)
@@ -208,7 +197,7 @@ class FileBrowser
     constructor()
     {
         const fileName = `${FileBrowser.c_MetaDataDirectory}/metadata.json`;
-        
+
         resources.fetchJSONFile
         (
             fileName,
@@ -216,7 +205,7 @@ class FileBrowser
             {
                 this.m_SiteContentRootPath = jsonData["dropboxPublicRootURL"];
 
-                document.getElementById("timestampValue").innerHTML = jsonData["timestamp"]; //This is ok but should the server really be styling output?
+                document.getElementById("timestampValue").textContent = jsonData["timestamp"]; //This is ok but should the server really be styling output?
                 
                 const dir = resources.readQueryStringParameter("d"); 
 
