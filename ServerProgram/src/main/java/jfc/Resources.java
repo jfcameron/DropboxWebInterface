@@ -21,7 +21,9 @@ public class Resources
     }
 
     /**
-     * RAII wrapper for FileSystem
+     * @desc RAII wrapper for FileSystem
+     * @Warning this is bad. I like RAII. I like dtors. finalizer is not dtor. who knows if close will ever get called
+     * replace with a util: openFile(){fs.open(), file.open();} closeFile(){fs.close(),file.close();}
      */
     private static class FileSystemWrapper
     {

@@ -7,6 +7,10 @@ import org.json.simple.parser.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @desc executable front-end for this library
+ * @author josephcameron
+ */
 public class Application
 {
     private static String m_DropboxPublicDirectoryRoot = "";

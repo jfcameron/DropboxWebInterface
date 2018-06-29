@@ -36,6 +36,8 @@ module resources
         //1: convert query string into a {[name: string]: string}
         //2: iterate ^ if ^[name] then write value else append to end
 
+        value = value.replace(" ", "%20").replace("&", "%26");
+
         window.history.pushState("object or string", "d", `?${name}=${value}`); //This only supports one param...  
     }
 

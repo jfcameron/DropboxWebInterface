@@ -1,7 +1,14 @@
 // © 2018 Joseph Cameron - All Rights Reserved
 
 import resources from "resources"
+import Spinner from "spinner"
 import "imageviewer"
+
+import AbstractViewer from "abstractviewer"
+import AudioViewer from "audioviewer"
+import DocumentViewer from "documentviewer"
+import ImageViewer from "imageviewer"
+import VideoViewer from "videoviewer"
 
 /**
 * @description browse content directory tree. detect file type and open appropriate view (if one exists)
@@ -16,6 +23,13 @@ class FileBrowser
     static readonly currentDirectoryNameNode: HTMLElement = document.getElementById("directoryName");
 
     private m_SiteContentRootPath: string;
+
+    private m_Viewers: {[filetype: string]: AbstractViewer} = {
+        "image": new ImageViewer(),
+        "video": new VideoViewer(),
+        "audio": new AudioViewer(),
+        "document": new DocumentViewer(),
+    };
     
     private renderTimeStamp(aTimeStampJSON: any)
     {
@@ -121,7 +135,7 @@ class FileBrowser
             } 
             break;
             
-            case("directoryItems"): //This is most definitely a hack. Improve this.
+            case("directoryItems"):
             {
                 aRawJSONData.forEach((item: {URL: string, Type: string}) =>
                 {
@@ -129,59 +143,9 @@ class FileBrowser
                     {
                         const type = item["Type"];
                         const url = `${this.m_SiteContentRootPath}${item["URL"]}`;
-                        
-                        if (type === "image")
-                        {
-                            const background = (() => 
-                            {
-                                const background = document.createElement("div");
 
-                                background.style.backgroundColor= "rgba(0, 0, 0, 0.7)"
-                                background.style.filter= "alpha(opacity=20)";
-                                background.style.width= "100%"; 
-                                background.style.height= "100%"; 
-                                background.style.zIndex= "10";
-                                background.style.top= "0"; 
-                                background.style.left= "0"; 
-                                background.style.position= "fixed"; 
-
-                                background.onclick = () =>
-                                {
-                                    console.log ("bg was pressed");
-                                    background.remove();
-                                };
-
-                                document.body.appendChild(background);
-
-                                return background;
-                            })();
-                            
-                            const image = (() =>
-                            {
-                                const image = document.createElement("img");
-
-                                image.src = url;
-
-                                image.style.position = "fixed";
-                                image.style.top = "50%";
-                                image.style.left = "50%";
-                                image.style.transform = "translate(-50%, -50%)";
-
-                                image.style.maxHeight = "90vh";
-                                image.style.maxWidth =  "100vw";
-
-                                image.onclick = (event: Event) =>
-                                {
-                                    console.log("image was clicked");
-
-                                    event.stopPropagation();
-                                };
-
-                                background.appendChild(image);
-
-                                return image;
-                            })();
-                        }
+                        if (this.m_Viewers[type] !== undefined) this.m_Viewers[type].view(url); 
+                        else console.log(`type: ${type} is not supported`); //should there be a default behaviour?
                     });
                 });
             } 
@@ -198,12 +162,16 @@ class FileBrowser
 
         while (FileBrowser.subDirectoryTableBody.hasChildNodes()) FileBrowser.subDirectoryTableBody.removeChild(FileBrowser.subDirectoryTableBody.lastChild);
         while (FileBrowser.directoryFilesTableBody.hasChildNodes()) FileBrowser.directoryFilesTableBody.removeChild(FileBrowser.directoryFilesTableBody.lastChild);
-            
+           
+        const spinner = new Spinner(FileBrowser.directoryFilesTableBody, {r: 0, g: 0, b: 0, a: 1});
+        
         resources.fetchJSONFile
         (
             `${FileBrowser.c_DirectoryListsDirectory}${aDirectoryPath}/content.json`, 
             (jsonData: {[field: string]: any}) =>
             {
+                spinner.destruct();
+
                 this.renderPathToCurrentDirectory(aDirectoryPath,jsonData);
                 
                 for (const key in jsonData) 

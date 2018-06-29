@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 /**
  * DirectoryMapper user points the object @ a directory, object traverses
  * directories creating a tree structure that represents the directory structure
- * found and contents found therein
+ * found and contents therein
  */
 public class DirectoryMapper
 {
@@ -89,7 +89,7 @@ public class DirectoryMapper
 
                         currentItem.put("URL", f.getPath().replace(m_DropboxPublicDirectoryRoot, ""));
 
-                        String[] splitString = f.getPath().split("\\.");
+                        String[] splitString = f.getPath().split("\\."); //"." has meaning in regex therefore must escape it
 
                         String type = "file";
 
@@ -105,8 +105,28 @@ public class DirectoryMapper
                                     type = "image";
                                 }
                                 break;
+                                
+                                case "mp4":
+                                case "webm":
+                                {
+                                    type = "video";
+                                }
+                                break;
+                                
+                                case "mp3":
+                                {
+                                    type = "audio";
+                                }
+                                break;
+                                
+                                case "txt":
+                                case "pdf":                                    
+                                {
+                                    type = "document";
+                                }
                             }
-                            System.out.print(type + "\n");
+
+                            //System.out.print(type + "\n");
                         }
 
                         currentItem.put("Type", type);
