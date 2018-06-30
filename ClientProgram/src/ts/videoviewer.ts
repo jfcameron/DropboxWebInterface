@@ -22,16 +22,22 @@ class VideoViewer extends AbstractViewer
             video.controls = true;
             video.autoplay = true;
 
+
             video.style.position = "fixed";
             video.style.top = "50%";
             video.style.left = "50%";
             video.style.transform = "translate(-50%, -50%)";
             video.style.maxHeight = "90vh";
-            video.style.maxWidth =  "100vw";
+            video.style.maxWidth = "100vw";
 
             video.onclick = (event: Event) =>
             {
                 event.stopPropagation();
+            };
+
+            video.oncanplay = () =>
+            {
+                aSpinner.destruct();
             };
 
             aBackground.appendChild(video);

@@ -14,14 +14,17 @@ class ImageViewer extends AbstractViewer
         {
             const image = document.createElement("img");
 
-            image.src = aURL;
-
             image.style.position = "fixed";
             image.style.top = "50%";
             image.style.left = "50%";
             image.style.transform = "translate(-50%, -50%)";
             image.style.maxHeight = "90vh";
             image.style.maxWidth =  "100vw";
+            image.style.backgroundColor = "white";
+            image.style.padding = "0px";
+            image.style.margin = "0px";
+
+            image.src = aURL;
 
             image.onload = () =>
             {

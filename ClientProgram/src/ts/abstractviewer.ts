@@ -3,14 +3,24 @@
 import Spinner from "spinner"
 
 /**
- * 
+ * Base type for all viewers.
+ * A viewer allows the user to consume a filetype of some kind
+ * e.g: videoviewer streams video files.
  */
 abstract class AbstractViewer
 {
     private m_ConcreteViewBehaviour: (aURL: string, aBackground: HTMLDivElement, aSpinner: Spinner) => void;
+    private m_DestructBehaviour: () => void | undefined;
 
     public view(aURL: string)
     {
+        const destruct = () =>
+        {
+            if (this.m_DestructBehaviour) this.m_DestructBehaviour();
+
+            background.remove();
+        };
+
         const background = (() => 
         {
             const background = document.createElement("div");
@@ -26,13 +36,20 @@ abstract class AbstractViewer
 
             background.onclick = () =>
             {
-                background.remove();
+                destruct();
             };
 
             document.body.appendChild(background);
 
             return background;
         })();
+
+        //background.appendChild(container);
+
+        const handle = window.addEventListener("keyup", (event: KeyboardEvent): void =>
+        {
+            if (event.key === "Escape") destruct();
+        });
 
         this.m_ConcreteViewBehaviour(
             aURL,
@@ -42,8 +59,12 @@ abstract class AbstractViewer
     }
 
     constructor(aViewBehaviour: (aURL: string, aBackground: HTMLDivElement, aSpinner: Spinner) => void)
+    constructor(aViewBehaviour: (aURL: string, aBackground: HTMLDivElement, aSpinner: Spinner) => void, aDestructBehaviour: () => void)
+    constructor(aViewBehaviour: any, aDestructBehaviour?: any)
     {
         this.m_ConcreteViewBehaviour = aViewBehaviour;
+
+        if (arguments.length === 2) this.m_DestructBehaviour = aDestructBehaviour;
     }
 }
 
