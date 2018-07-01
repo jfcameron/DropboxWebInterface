@@ -20,7 +20,6 @@ class ImageViewer extends AbstractViewer
             image.style.transform = "translate(-50%, -50%)";
             image.style.maxHeight = "90vh";
             image.style.maxWidth =  "100vw";
-            image.style.backgroundColor = "white";
             image.style.padding = "0px";
             image.style.margin = "0px";
 

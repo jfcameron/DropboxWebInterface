@@ -108,6 +108,7 @@ public class DirectoryMapper
                                 
                                 case "mp4":
                                 case "webm":
+                                case "mkv":
                                 {
                                     type = "video";
                                 }

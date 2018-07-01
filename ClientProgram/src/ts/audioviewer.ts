@@ -50,7 +50,7 @@ class AudioViewer extends AbstractViewer
                 audio.crossOrigin = "anonymous";
 
                 audio.innerText = "Your Browser does not support HTML5 audio playback";
-            
+
                 const source = document.createElement("source");
                 source.src = aURL;
             
@@ -62,6 +62,18 @@ class AudioViewer extends AbstractViewer
                 audio.style.backgroundColor = "black";
 
                 return audio;
+            })();
+
+            //
+            // Visualizer
+            //
+            const visualizerContainer = (() =>
+            {
+                const div = document.createElement("div");
+
+                div.style.padding = "0px";
+
+                return div;
             })();
 
             const canvas = (() => 
@@ -130,26 +142,177 @@ class AudioViewer extends AbstractViewer
                 return canvas;
             })();
 
-            const visualizerContainer = (() =>
-            {
-                const div = document.createElement("div");
+            visualizerContainer.appendChild(canvas);
 
-                div.style.padding = "0px";
-
-                return div;
-            })();
-
+            //CONTROLS
             const controlsContainer = (() =>
             {
-                const div = document.createElement("div");
+                const controlsContainer = document.createElement("div");
 
-                div.style.padding = "0px";
-                div.style.backgroundColor = "black";
+                controlsContainer.style.padding = "0px";
+                controlsContainer.style.backgroundColor = "black";
 
-                return div;
+                //
+                // Play, Pause
+                //
+                {
+                    const playbutton = document.createElement("button");
+                    
+                    enum PlaybuttonState {
+                        Play = 0,
+                        Pause
+                    };
+
+                    let state = PlaybuttonState.Pause;
+
+                    playbutton.innerText = "Pause";
+
+                    playbutton.onclick = () => 
+                    {
+                        switch (state)
+                        {
+                            case PlaybuttonState.Play:
+                            {
+                                playbutton.innerText = "Pause";
+
+                                state = PlaybuttonState.Pause;
+
+                                audio.play();
+                            }
+                            break;
+
+                            case PlaybuttonState.Pause:
+                            {
+                                playbutton.innerText = "Play";
+
+                                state = PlaybuttonState.Play;
+
+                                audio.pause();
+                            }
+                            break;
+                        }
+                        
+                    };
+
+                    controlsContainer.appendChild(playbutton);
+                }
+
+                //
+                // Scrubber
+                //
+                {
+                    const scrubcontainer = document.createElement("div");
+                    const slider = document.createElement("input");
+
+                    slider.type = "range";
+                    slider.min = "0";
+                    slider.className = "slider";
+
+                    slider.style.border = "1px solid #CECECE";
+
+                    audio.addEventListener("durationchange",() =>
+                    {
+                        slider.max = `${audio.duration}`;
+                    });
+
+                    audio.addEventListener("timeupdate", () =>
+                    {
+                        slider.value = `${audio.currentTime}`;
+                    });
+
+                    slider.addEventListener("change", () =>
+                    {
+                        audio.currentTime = Number(slider.value);
+                    });                    
+                    
+                    scrubcontainer.appendChild(slider);
+                    controlsContainer.appendChild(scrubcontainer);
+                }
+
+                //
+                // Volume control
+                //
+                {
+                    const volumecontainer = document.createElement("div");
+                    const volumeslider = document.createElement("input");
+
+                    const sliderrange = 100;
+
+                    volumeslider.type = "range";
+                    
+                    volumeslider.min = "0";
+                    volumeslider.max = `${sliderrange}`;
+
+                    volumeslider.style.border = "1px solid #CECECE";
+
+                    volumeslider.addEventListener("change", () => //mouseup
+                    {
+                        console.log("change");
+                        audio.volume = Number(volumeslider.value) / sliderrange;
+                    });
+
+                    audio.addEventListener("volumechange", () =>
+                    {
+                        volumeslider.value = `${sliderrange * audio.volume}`;
+                    });
+
+                    volumeslider.value = `${audio.volume * sliderrange}`;
+                    
+                    volumecontainer.appendChild(volumeslider);
+                    controlsContainer.appendChild(volumecontainer);
+                }
+
+                //
+                // Rendering the current time and total duration in text
+                //
+                {
+                    const duration = document.createElement("button");
+                    
+                    let totalTime = "";
+
+                    const renderCurrentTimeAndDuration = (aCurrentTime: number, aDuration: number) =>
+                    {
+                        const renderRawSecondsToHourMinuteSecondString = (rawSeconds: number): string =>
+                        {
+                            const rawMinutes: number = Math.floor(rawSeconds / 60);
+
+                            const hours: number = Math.floor(rawSeconds / 60 / 60);
+                            const minutes = rawMinutes - (hours * 60);
+                            const seconds = Math.floor(rawSeconds - (minutes * 60) - (hours * 60 * 60));
+
+                            return `${hours}:${minutes > 9 ? minutes : `0${minutes}`}:${seconds > 9 ? seconds : `0${seconds}`}`;
+                        };
+
+                        duration.innerHTML = `${renderRawSecondsToHourMinuteSecondString(aCurrentTime)} / ${renderRawSecondsToHourMinuteSecondString(aDuration)}`;
+                    };
+
+                    audio.addEventListener("durationchange",() =>
+                    {   
+                        renderCurrentTimeAndDuration(0, audio.duration);
+
+                    });
+
+                    audio.addEventListener("timeupdate", () =>
+                    {
+                        renderCurrentTimeAndDuration(audio.currentTime, audio.duration);
+                    });
+
+                    controlsContainer.appendChild(duration);
+                }
+
+                const blar = document.createElement("button");
+                audio.addEventListener("loadedmetadata", () =>
+                {
+                    
+
+                    //blar.innerText = `${audio.namespaceURI}`;
+                });
+                controlsContainer.appendChild(blar);
+
+
+                return controlsContainer;
             })();
 
-            visualizerContainer.appendChild(canvas);
             controlsContainer.appendChild(audio);
 
             container.appendChild(visualizerContainer);
