@@ -55,7 +55,7 @@ class AudioViewer extends AbstractViewer
                 source.src = aURL;
             
                 audio.appendChild(source);
-                audio.controls = true;
+                //audio.controls = true;
                 audio.autoplay = true;
 
                 audio.style.width = "100%";
@@ -106,9 +106,8 @@ class AudioViewer extends AbstractViewer
         
                     const gradient = g2d.createLinearGradient(0, 0, 0, 200);
 
-                    gradient.addColorStop(1,   "rgba(0, 0,   0, 1)"); 
-                    //gradient.addColorStop(0.5, "rgba(0, 0, 127, 1)");
-                    gradient.addColorStop(0,   "rgba(0, 0, 255, 1)");
+                    gradient.addColorStop(1, "rgba(0, 0,   0, 1)"); 
+                    gradient.addColorStop(0, "rgba(0, 0, 255, 1)");
 
                     g2d.fillStyle = gradient; 
 
@@ -151,12 +150,15 @@ class AudioViewer extends AbstractViewer
 
                 controlsContainer.style.padding = "0px";
                 controlsContainer.style.backgroundColor = "black";
+                controlsContainer.style.display = "flex";
 
                 //
                 // Play, Pause
                 //
                 {
                     const playbutton = document.createElement("button");
+
+                    playbutton.style.display = "inline;"
                     
                     enum PlaybuttonState {
                         Play = 0,
@@ -202,6 +204,9 @@ class AudioViewer extends AbstractViewer
                 //
                 {
                     const scrubcontainer = document.createElement("div");
+
+                    scrubcontainer.style.display = "inline;"
+
                     const slider = document.createElement("input");
 
                     slider.type = "range";
@@ -227,39 +232,6 @@ class AudioViewer extends AbstractViewer
                     
                     scrubcontainer.appendChild(slider);
                     controlsContainer.appendChild(scrubcontainer);
-                }
-
-                //
-                // Volume control
-                //
-                {
-                    const volumecontainer = document.createElement("div");
-                    const volumeslider = document.createElement("input");
-
-                    const sliderrange = 100;
-
-                    volumeslider.type = "range";
-                    
-                    volumeslider.min = "0";
-                    volumeslider.max = `${sliderrange}`;
-
-                    volumeslider.style.border = "1px solid #CECECE";
-
-                    volumeslider.addEventListener("change", () => //mouseup
-                    {
-                        console.log("change");
-                        audio.volume = Number(volumeslider.value) / sliderrange;
-                    });
-
-                    audio.addEventListener("volumechange", () =>
-                    {
-                        volumeslider.value = `${sliderrange * audio.volume}`;
-                    });
-
-                    volumeslider.value = `${audio.volume * sliderrange}`;
-                    
-                    volumecontainer.appendChild(volumeslider);
-                    controlsContainer.appendChild(volumecontainer);
                 }
 
                 //
@@ -300,15 +272,38 @@ class AudioViewer extends AbstractViewer
                     controlsContainer.appendChild(duration);
                 }
 
-                const blar = document.createElement("button");
-                audio.addEventListener("loadedmetadata", () =>
+                //
+                // Volume control
+                //
                 {
+                    const volumecontainer = document.createElement("div");
+                    const volumeslider = document.createElement("input");
+
+                    const sliderrange = 100;
+
+                    volumeslider.type = "range";
                     
+                    volumeslider.min = "0";
+                    volumeslider.max = `${sliderrange}`;
 
-                    //blar.innerText = `${audio.namespaceURI}`;
-                });
-                controlsContainer.appendChild(blar);
+                    volumeslider.style.border = "1px solid #CECECE";
 
+                    volumeslider.addEventListener("change", () => //mouseup
+                    {
+                        console.log("change");
+                        audio.volume = Number(volumeslider.value) / sliderrange;
+                    });
+
+                    audio.addEventListener("volumechange", () =>
+                    {
+                        volumeslider.value = `${sliderrange * audio.volume}`;
+                    });
+
+                    volumeslider.value = `${audio.volume * sliderrange}`;
+                    
+                    volumecontainer.appendChild(volumeslider);
+                    controlsContainer.appendChild(volumecontainer);
+                }
 
                 return controlsContainer;
             })();
