@@ -8,6 +8,15 @@
 /* ************************************************ */
 /*                 LAYOUT DEFINITION                */
 /* ************************************************ */
+
+input[type=range] {
+    height: 0.5em;
+}
+
+input[type=range]::-moz-range-progress {
+  background-color: rgb(0, 102, 255);
+}
+
 body, html 
 {
     background-color:#DDD;

@@ -151,14 +151,63 @@ class AudioViewer extends AbstractViewer
                 controlsContainer.style.padding = "0px";
                 controlsContainer.style.backgroundColor = "black";
                 controlsContainer.style.display = "flex";
+                controlsContainer.style.verticalAlign = "middle";
 
                 //
                 // Play, Pause
                 //
                 {
+                    const playsvg = `
+<svg
+    height = "100%"
+    width = "100%"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    id="play-icon"
+    version="1.1"
+    height="50"
+    width="50"
+    viewBox="0 0 1200 1200">
+    <path
+        d="M 600,1200 C 268.65,1200 0,931.35 0,600 0,268.65 268.65,0 600,0 c 331.35,0 600,268.65 600,600 0,331.35 -268.65,600 -600,600 z M 450,300.45 450,899.55 900,600 450,300.45 z"
+        id="path16995" />
+</svg>`;
+                    const pausesvg = `
+<svg
+    height ="100%"
+    width = "100%"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    id="pause-icon"
+    version="1.1"
+    height="50"
+    width="50"
+    viewBox="0 0 1200 1200">
+    <path
+        id="path15778"
+        d="M 600,0 C 268.62914,0 0,268.62914 0,600 c 0,331.37086 268.62914,600 600,600 331.37086,0 600,-268.62914 600,-600 C 1200,268.62914 931.37086,0 600,0 z m -269.16515,289.38 181.71397,0 0,621.24 -181.71397,0 0,-621.24 z m 356.61633,0 181.71399,0 0,621.24 -181.71399,0 0,-621.24 z" />
+</svg>
+                    `;
+
                     const playbutton = document.createElement("button");
 
                     playbutton.style.display = "inline;"
+                    playbutton.style.height = "1.5em";
+                    playbutton.style.width = "1.5em";
+                    playbutton.style.margin = "0px";
+                    playbutton.style.padding = "0px";
+                    playbutton.style.border = "none";
+                    playbutton.style.textAlign = "center";
+                    playbutton.style.display = "inline-block";
+                    //playbutton.style.backgroundColor = "#4CAF50";
+                    //playbutton.style.background = "black";
+                    playbutton.style.margin = "0em 0.5em  0em 0em";
                     
                     enum PlaybuttonState {
                         Play = 0,
@@ -168,6 +217,7 @@ class AudioViewer extends AbstractViewer
                     let state = PlaybuttonState.Pause;
 
                     playbutton.innerText = "Pause";
+                    playbutton.innerHTML = pausesvg;
 
                     playbutton.onclick = () => 
                     {
@@ -176,6 +226,7 @@ class AudioViewer extends AbstractViewer
                             case PlaybuttonState.Play:
                             {
                                 playbutton.innerText = "Pause";
+                                playbutton.innerHTML = pausesvg;
 
                                 state = PlaybuttonState.Pause;
 
@@ -186,6 +237,7 @@ class AudioViewer extends AbstractViewer
                             case PlaybuttonState.Pause:
                             {
                                 playbutton.innerText = "Play";
+                                playbutton.innerHTML = playsvg;
 
                                 state = PlaybuttonState.Play;
 
@@ -205,15 +257,19 @@ class AudioViewer extends AbstractViewer
                 {
                     const scrubcontainer = document.createElement("div");
 
-                    scrubcontainer.style.display = "inline;"
+                    scrubcontainer.style.display = "flex";
+                    scrubcontainer.style.alignItems = "center";
 
                     const slider = document.createElement("input");
 
+                    slider.style.width = "7em";
+                    
                     slider.type = "range";
                     slider.min = "0";
                     slider.className = "slider";
 
-                    slider.style.border = "1px solid #CECECE";
+                    //slider.style.border = "1px solid #CECECE";
+                    //slider.style.mozRangeProgress;
 
                     audio.addEventListener("durationchange",() =>
                     {
@@ -238,7 +294,14 @@ class AudioViewer extends AbstractViewer
                 // Rendering the current time and total duration in text
                 //
                 {
-                    const duration = document.createElement("button");
+                    const duration = document.createElement("div");
+
+                    duration.style.color = "white";
+                    duration.style.fontSize = "0.8em";
+                    duration.style.margin = "0em 1em  0em 1em";
+
+                    duration.style.display = "flex";
+                    duration.style.alignItems = "center";
                     
                     let totalTime = "";
 
@@ -277,7 +340,13 @@ class AudioViewer extends AbstractViewer
                 //
                 {
                     const volumecontainer = document.createElement("div");
+
+                    volumecontainer.style.display = "flex";
+                    volumecontainer.style.alignItems = "center";
+
                     const volumeslider = document.createElement("input");
+
+                    volumeslider.style.width = "3.0em";
 
                     const sliderrange = 100;
 
