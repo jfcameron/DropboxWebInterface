@@ -158,25 +158,62 @@ class AudioViewer extends AbstractViewer
                 //
                 {
                     const playsvg = `
-<svg
-    height = "100%"
-    width = "100%"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:cc="http://creativecommons.org/ns#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns="http://www.w3.org/2000/svg"
-    id="play-icon"
-    version="1.1"
-    height="50"
-    width="50"
-    viewBox="0 0 1200 1200">
-    <path
-        d="M 600,1200 C 268.65,1200 0,931.35 0,600 0,268.65 268.65,0 600,0 c 331.35,0 600,268.65 600,600 0,331.35 -268.65,600 -600,600 z M 450,300.45 450,899.55 900,600 450,300.45 z"
-        id="path16995" />
-</svg>`;
+<svg  id='pause'
+    height ="100%"
+    width = "100%">
+	<circle id="circle" cx="51" cy="51" r="50" stroke-dasharray="314" stroke-dashoffset="0" style="stroke-width:2px;stroke:white;" />
+	<line id='line1' x1="38" y1="30" x2="38" y2="70" style="stroke-width:4px;stroke:white;stroke-linecap: round;" />
+	<path id='line2' d="M 66 30 L 66 50 L 66 70" rx="10" ry="10" style="stroke-width:4px;stroke:white;fill:white;stroke-linejoin: round;stroke-linecap: round;">
+		<animate
+			attributeName="d"
+			dur="300ms"
+			from="M 66 30 L 66 50 L 66 70"
+			to="M 38 30 L 70 50 L 38 70"
+			begin="indefinite"
+			fill="freeze"
+			id="from_pause_to_play"
+		/>
+	</path>
+	<animate
+		xlink:href="#line2"
+		attributeName="d"
+		dur="300ms"
+		from="M 38 30 L 70 50 L 38 70"
+		to="M 66 30 L 66 50 L 66 70"
+		fill="freeze"
+		id="from_play_to_pause"
+		begin="indefinite"
+	/>`;
                     const pausesvg = `
-<svg
+<svg  id='pause'
+height ="100%"
+    width = "100%"
+>
+	<circle id="circle" cx="51" cy="51" r="50" stroke-dasharray="314" stroke-dashoffset="0" style="stroke-width:2px;stroke:white;" />
+	<line id='line1' x1="38" y1="30" x2="38" y2="70" style="stroke-width:4px;stroke:white;stroke-linecap: round;" />
+	<path id='line2' d="M 66 30 L 66 50 L 66 70" rx="10" ry="10" style="stroke-width:4px;stroke:white;fill:white;stroke-linejoin: round;stroke-linecap: round;">
+		<animate
+			attributeName="d"
+			dur="300ms"
+			from="M 66 30 L 66 50 L 66 70"
+			to="M 38 30 L 70 50 L 38 70"
+			begin="indefinite"
+			fill="freeze"
+			id="from_pause_to_play"
+		/>
+	</path>
+	<animate
+		xlink:href="#line2"
+		attributeName="d"
+		dur="300ms"
+		from="M 38 30 L 70 50 L 38 70"
+		to="M 66 30 L 66 50 L 66 70"
+		fill="freeze"
+		id="from_play_to_pause"
+		begin="indefinite"
+    />`;
+    const blimblam = `
+    <svg
     height ="100%"
     width = "100%"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
