@@ -3,4 +3,4 @@
  * user guide at https://docs.gradle.org/4.8/userguide/multi_project_builds.html
  */
 
-rootProject.name = "ServerProgram"
+rootProject.name = "static-media-site-generator"

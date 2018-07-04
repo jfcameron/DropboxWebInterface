@@ -1,7 +1,9 @@
 ext.jfc = [
-    /// \Description Run a shell script
-    /// \Note Executed relative to the root project dir
-    /// \Exception Throws if the command produces any output in standard error
+    /**
+     * @desc Run a shell script
+     * @note Executed relative to the root project dir
+     * @exception Throws if the command produces any output in standard error
+     */
     execshell: {String aShellCommand ->
         def proc = ["/bin/sh", "-c", "cd ${rootProject.projectDir.toString()};${aShellCommand}"].execute()
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -15,7 +17,10 @@ ext.jfc = [
     }      
 ]
 
-buildConfig { /// \Description common configuration for de.fuerstenau.buildconfig plugin
+/**
+ * @desc common configuration for de.fuerstenau.buildconfig plugin
+ */
+buildConfig { 
     appName = project.name   
     version = project.version
     packageName = "jfc"
